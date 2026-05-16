@@ -1,0 +1,54 @@
+# Entity: ain
+
+main: kit: entity: ain: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "answer"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "ain"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                example: "Say hi"
+                kind: "query"
+                name: "query"
+                orig: "query"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/ai"
+          parts: [
+            "ai"
+          ]
+          select: {
+            exist: [
+              "query"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

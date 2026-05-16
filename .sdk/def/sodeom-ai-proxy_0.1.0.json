@@ -1,0 +1,250 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Sodeom AI Proxy",
+    "description": "This API serves as a proxy to an OpenAI-compatible API utilizing GitHub Models. It allows users to send queries or chat history and receive generated text responses, ensuring privacy and no tracking.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Sodeom Support",
+      "url": "https://sodeom.com"
+    },
+    "license": {
+      "name": "Proprietary"
+    }
+  },
+  "externalDocs": {
+    "description": "Full API Documentation",
+    "url": "https://sodeom.com/apis/ai"
+  },
+  "servers": [
+    {
+      "url": "https://sodeom.com",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/ai": {
+      "get": {
+        "summary": "Generate AI response from simple query",
+        "description": "Sends a simple text prompt to the AI model and receives a generated text response. The query parameter is converted into a messages array internally.",
+        "operationId": "getAiResponse",
+        "tags": [
+          "AI Chat"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Simple prompt text used to build messages",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Say hi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with generated text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiResponse"
+                },
+                "example": {
+                  "answer": "Hello! How can I assist you today?"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Missing query parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing query and messages"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - Upstream API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Upstream API error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Generate AI response from chat history",
+        "description": "Sends a complete chat history with optional configuration to the AI model and receives a generated text response. This endpoint provides full control over the request parameters passed to the underlying OpenAI-compatible API.",
+        "operationId": "postAiResponse",
+        "tags": [
+          "AI Chat"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AiRequest"
+              },
+              "example": {
+                "model": "gpt-4o-mini",
+                "messages": [
+                  {
+                    "role": "user",
+                    "content": "Say hi"
+                  }
+                ],
+                "temperature": 0.7
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response with generated text",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AiResponse"
+                },
+                "example": {
+                  "answer": "Hello! How can I assist you today?"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Missing messages array",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing query and messages"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - Upstream API error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Upstream API error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AiRequest": {
+        "type": "object",
+        "required": [
+          "messages"
+        ],
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "Chat history array passed to the model",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            },
+            "minItems": 1
+          },
+          "model": {
+            "type": "string",
+            "description": "Overrides the default model (gpt-4o-mini)",
+            "example": "gpt-4o-mini"
+          },
+          "temperature": {
+            "type": "number",
+            "description": "Sampling temperature passed through to the model (0.0 to 2.0)",
+            "minimum": 0,
+            "maximum": 2,
+            "example": 0.7
+          },
+          "max_tokens": {
+            "type": "integer",
+            "description": "Maximum tokens for the response",
+            "minimum": 1,
+            "example": 2048
+          }
+        }
+      },
+      "Message": {
+        "type": "object",
+        "required": [
+          "role",
+          "content"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "description": "The role of the message sender",
+            "enum": [
+              "system",
+              "user",
+              "assistant"
+            ],
+            "example": "user"
+          },
+          "content": {
+            "type": "string",
+            "description": "The content of the message",
+            "example": "Say hi"
+          }
+        }
+      },
+      "AiResponse": {
+        "type": "object",
+        "required": [
+          "answer"
+        ],
+        "properties": {
+          "answer": {
+            "type": "string",
+            "description": "Generated text response from the AI model",
+            "example": "Hello! How can I assist you today?"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error message describing what went wrong",
+            "example": "Missing query and messages"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "AI Chat",
+      "description": "Endpoints for interacting with the AI chat proxy"
+    }
+  ]
+}

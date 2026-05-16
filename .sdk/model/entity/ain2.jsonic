@@ -1,0 +1,57 @@
+# Entity: ain2
+
+main: kit: entity: ain2: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "answer"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "max_token"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "message"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "model"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "temperature"
+      req: false
+      type: "`$NUMBER`"
+    }
+  ]
+
+  name: "ain2"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/ai"
+          parts: [
+            "ai"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

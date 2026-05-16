@@ -1,0 +1,22 @@
+{
+  "existing": {
+    "ain": {
+      "AIN00": {
+        "answer": "sa"
+      },
+      "AIN01": {
+        "answer": "s14"
+      },
+      "AIN02": {
+        "answer": "s1e"
+      }
+    }
+  },
+  "new": {
+    "ain": {
+      "ain_ref01": {
+        "answer": "s28"
+      }
+    }
+  }
+}
