@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk"
-	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/core"
+	sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go"
+	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
 )
 
 func TestAinDirect(t *testing.T) {

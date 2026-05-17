@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/core"
+import "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
 
 func makeContextUtil(ctxmap map[string]any, basectx *core.Context) *core.Context {
 	return core.NewContext(ctxmap, basectx)

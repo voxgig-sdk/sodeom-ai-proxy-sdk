@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk"
-	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/core"
+	sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go"
+	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/utility/struct"
 )
 
 func TestAinEntity(t *testing.T) {

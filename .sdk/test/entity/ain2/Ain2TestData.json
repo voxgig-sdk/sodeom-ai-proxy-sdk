@@ -6,21 +6,24 @@
         "max_token": "s33",
         "message": [],
         "model": "s35",
-        "temperature": 54
+        "temperature": 54,
+        "id": "AIN200"
       },
       "AIN201": {
         "answer": "s64",
         "max_token": "s65",
         "message": [],
         "model": "s67",
-        "temperature": 104
+        "temperature": 104,
+        "id": "AIN201"
       },
       "AIN202": {
         "answer": "s96",
         "max_token": "s97",
         "message": [],
         "model": "s99",
-        "temperature": 154
+        "temperature": 154,
+        "id": "AIN202"
       }
     }
   },

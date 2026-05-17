@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/core"
+	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
 )
 
 type BaseFeature struct {

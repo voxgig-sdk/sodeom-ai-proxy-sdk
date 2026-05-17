@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/core"
+import "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
 
 func prepareBodyUtil(ctx *core.Context) any {
 	op := ctx.Op

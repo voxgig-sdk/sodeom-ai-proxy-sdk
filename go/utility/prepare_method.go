@@ -1,6 +1,6 @@
 package utility
 
-import "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/core"
+import "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
 
 func prepareMethodUtil(ctx *core.Context) string {
 	opname := ctx.Op.Name

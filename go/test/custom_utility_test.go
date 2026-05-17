@@ -3,7 +3,7 @@ package sdktest
 import (
 	"testing"
 
-	sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk"
+	sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go"
 )
 
 func TestCustomUtility(t *testing.T) {

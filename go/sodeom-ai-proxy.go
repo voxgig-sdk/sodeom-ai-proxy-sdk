@@ -1,10 +1,10 @@
 package voxgigsodeomaiproxysdk
 
 import (
-	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/core"
-	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/entity"
-	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/feature"
-	_ "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/utility"
+	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
+	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/entity"
+	"github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/feature"
+	_ "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/utility"
 )
 
 // Type aliases preserve external API.
