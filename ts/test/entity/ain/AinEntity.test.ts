@@ -113,7 +113,6 @@ function basicSetup(extra?: any) {
     'SODEOM_AI_PROXY_TEST_AIN_ENTID': idmap,
     'SODEOM_AI_PROXY_TEST_LIVE': 'FALSE',
     'SODEOM_AI_PROXY_TEST_EXPLAIN': 'FALSE',
-    'SODEOM_AI_PROXY_APIKEY': 'NONE',
   })
 
   idmap = env['SODEOM_AI_PROXY_TEST_AIN_ENTID']
@@ -123,7 +122,6 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new SodeomAiProxySDK(merge([
       {
-        apikey: env.SODEOM_AI_PROXY_APIKEY,
       },
       extra
     ]))

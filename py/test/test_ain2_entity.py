@@ -87,7 +87,6 @@ def _ain2_basic_setup(extra):
         "SODEOMAIPROXY_TEST_AIN__ENTID": idmap,
         "SODEOMAIPROXY_TEST_LIVE": "FALSE",
         "SODEOMAIPROXY_TEST_EXPLAIN": "FALSE",
-        "SODEOMAIPROXY_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -98,7 +97,6 @@ def _ain2_basic_setup(extra):
     if env.get("SODEOMAIPROXY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("SODEOMAIPROXY_APIKEY"),
             },
             extra or {},
         ])

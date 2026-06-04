@@ -28,16 +28,13 @@ package main
 
 import (
     "fmt"
-    "os"
 
     sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go"
     "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go/core"
 )
 
 func main() {
-    client := sdk.NewSodeomAiProxySDK(map[string]any{
-        "apikey": os.Getenv("SODEOM-AI-PROXY_APIKEY"),
-    })
+    client := sdk.NewSodeomAiProxySDK(map[string]any{})
 ```
 
 ### 3. Load a ain
@@ -140,7 +137,6 @@ Create a `.env.local` file at the project root:
 
 ```
 SODEOM-AI-PROXY_TEST_LIVE=TRUE
-SODEOM-AI-PROXY_APIKEY=<your-key>
 ```
 
 Then run:
@@ -162,7 +158,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `"apikey"` | `string` | API key for authentication. |
 | `"base"` | `string` | Base URL of the API server. |
 | `"prefix"` | `string` | URL path prefix prepended to all requests. |
 | `"suffix"` | `string` | URL path suffix appended to all requests. |
