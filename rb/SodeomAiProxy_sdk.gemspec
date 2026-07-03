@@ -2,9 +2,17 @@ Gem::Specification.new do |spec|
   spec.name          = "voxgig-sdk-sodeom-ai-proxy"
   spec.version       = "0.0.1"
   spec.authors       = ["Voxgig"]
-  spec.summary       = "SodeomAiProxy SDK for Ruby"
+  spec.summary       = "Unofficial generated Ruby SDK for the Sodeom AI Proxy public API. Not affiliated with or endorsed by the upstream API provider."
+  spec.description   = "Unofficial generated Ruby SDK for the Sodeom AI Proxy public API. Not affiliated with or endorsed by the upstream API provider."
   spec.license       = "MIT"
   spec.homepage      = "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk"
+  spec.metadata      = {
+    "homepage_uri"          => "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk",
+    "source_code_uri"       => "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk",
+    "bug_tracker_uri"       => "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/issues",
+    "changelog_uri"         => "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/blob/main/CHANGELOG.md",
+    "rubygems_mfa_required" => "true"
+  }
 
   spec.files         = Dir["lib/**/*.rb", "*.rb"]
   spec.require_paths = ["."]

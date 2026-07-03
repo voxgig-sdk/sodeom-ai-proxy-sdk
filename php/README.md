@@ -10,7 +10,7 @@ The PHP SDK for the SodeomAiProxy API — an entity-oriented client using PHP co
 
 ## Install
 ```bash
-composer require voxgig/sodeom-ai-proxy-sdk
+composer require voxgig-sdk/sodeom-ai-proxy
 ```
 
 

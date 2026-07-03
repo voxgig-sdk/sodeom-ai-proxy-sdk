@@ -1,7 +1,23 @@
 {
   "name": "@voxgig-sdk/sodeom-ai-proxy",
   "version": "0.0.1",
-  "description": "DESCRIPTION",
+  "description": "Unofficial generated TypeScript SDK for the Sodeom AI Proxy public API. Not affiliated with or endorsed by the upstream API provider.",
+  "keywords": [
+    "voxgig",
+    "sdk",
+    "generated-sdk",
+    "openapi",
+    "api-client",
+    "sodeom-ai-proxy"
+  ],
+  "homepage": "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/issues"
+  },
   "main": "dist/SodeomAiProxySDK.js",
   "type": "commonjs",
   "types": "dist/SodeomAiProxySDK.d.ts",
@@ -14,7 +30,10 @@
     "clean": "rm -rf node_modules yarn.lock package-lock.json",
     "reset": "npm run clean && npm i && npm run build && npm test"
   },
-  "author": "SodeomAiProxy",
+  "author": {
+    "name": "Voxgig",
+    "url": "https://voxgig.com"
+  },
   "license": "MIT",
   "dependencies": {},
   "peerDependencies": {},

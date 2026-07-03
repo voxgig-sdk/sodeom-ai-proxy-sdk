@@ -8,12 +8,14 @@ source = {
   dir = "sodeom-ai-proxy-sdk/lua"
 }
 description = {
-  summary = "SodeomAiProxy SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the Sodeom AI Proxy public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk",
+  issues_url = "https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "sodeom-ai-proxy" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

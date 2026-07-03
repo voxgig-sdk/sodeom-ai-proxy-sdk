@@ -10,13 +10,13 @@ The Ruby SDK for the SodeomAiProxy API — an entity-oriented client using idiom
 
 ## Install
 ```bash
-gem install sodeom-ai-proxy-sdk
+gem install voxgig-sdk-sodeom-ai-proxy
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "sodeom-ai-proxy-sdk"
+gem "voxgig-sdk-sodeom-ai-proxy"
 ```
 
 Then run:

@@ -10,7 +10,7 @@ The Python SDK for the SodeomAiProxy API — an entity-oriented client following
 
 ## Install
 ```bash
-pip install sodeom-ai-proxy-sdk
+pip install voxgig-sdk-sodeom-ai-proxy
 ```
 
 Or install from source:

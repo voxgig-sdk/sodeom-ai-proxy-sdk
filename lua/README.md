@@ -10,7 +10,7 @@ The Lua SDK for the SodeomAiProxy API — an entity-oriented client using Lua co
 
 ## Install
 ```bash
-luarocks install sodeom-ai-proxy-sdk
+luarocks install voxgig-sdk-sodeom-ai-proxy
 ```
 
 If the module is not yet published, add the source directory to

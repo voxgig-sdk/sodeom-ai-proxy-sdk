@@ -10,7 +10,7 @@ The TypeScript SDK for the SodeomAiProxy API — a type-safe, entity-oriented cl
 
 ## Install
 ```bash
-npm install sodeom-ai-proxy
+npm install @voxgig-sdk/sodeom-ai-proxy
 ```
 ## Tutorial: your first API call
 
