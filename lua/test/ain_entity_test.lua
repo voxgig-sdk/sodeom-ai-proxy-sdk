@@ -91,6 +91,7 @@ function ain_basic_setup(extra)
     ["SODEOMAIPROXY_TEST_AIN_ENTID"] = idmap,
     ["SODEOMAIPROXY_TEST_LIVE"] = "FALSE",
     ["SODEOMAIPROXY_TEST_EXPLAIN"] = "FALSE",
+    ["SODEOMAIPROXY_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -102,6 +103,7 @@ function ain_basic_setup(extra)
   if env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["SODEOMAIPROXY_APIKEY"],
       },
       extra or {},
     })

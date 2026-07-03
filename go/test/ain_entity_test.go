@@ -117,6 +117,7 @@ func ainBasicSetup(extra map[string]any) *entityTestSetup {
 		"SODEOMAIPROXY_TEST_AIN_ENTID": idmap,
 		"SODEOMAIPROXY_TEST_LIVE":      "FALSE",
 		"SODEOMAIPROXY_TEST_EXPLAIN":   "FALSE",
+		"SODEOMAIPROXY_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["SODEOMAIPROXY_TEST_AIN_ENTID"])
@@ -127,6 +128,7 @@ func ainBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["SODEOMAIPROXY_APIKEY"],
 			},
 			extra,
 		})

@@ -85,6 +85,7 @@ function ain_basic_setup($extra)
         "SODEOMAIPROXY_TEST_AIN_ENTID" => $idmap,
         "SODEOMAIPROXY_TEST_LIVE" => "FALSE",
         "SODEOMAIPROXY_TEST_EXPLAIN" => "FALSE",
+        "SODEOMAIPROXY_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -96,6 +97,7 @@ function ain_basic_setup($extra)
     if ($env["SODEOMAIPROXY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["SODEOMAIPROXY_APIKEY"],
             ],
             $extra ?? [],
         ]);

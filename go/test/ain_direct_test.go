@@ -105,12 +105,14 @@ func ainDirectSetup(mockres any) *ainDirectSetupResult {
 	env := envOverride(map[string]any{
 		"SODEOMAIPROXY_TEST_AIN_ENTID": map[string]any{},
 		"SODEOMAIPROXY_TEST_LIVE":    "FALSE",
+		"SODEOMAIPROXY_APIKEY":       "NONE",
 	})
 
 	live := env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["SODEOMAIPROXY_APIKEY"],
 		}
 		client := sdk.NewSodeomAiProxySDK(mergedOpts)
 

@@ -1,21 +1,8 @@
 # SodeomAiProxy SDK
 
-OpenAI-compatible proxy that forwards chat completions to GitHub Models, with no API key required from callers
+Sodeom AI Proxy client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Sodeom AI Proxy
-
-Sodeom AI Proxy is a small public HTTP service operated by [Sodeom](https://sodeom.com) (Abdul Hadi) that exposes an OpenAI-compatible interface in front of [GitHub Models](https://github.com/marketplace/models). It lets you call familiar chat-completion endpoints without managing your own GitHub token, so any OpenAI SDK can be pointed at it by changing only the base URL.
-
-What you get from the API:
-
-- A simple `GET /ai?query=...` endpoint that returns `{"answer": "..."}` for one-shot questions.
-- An OpenAI-shaped `POST /v1/chat/completions` endpoint accepting `messages`, `model`, `temperature`, `max_tokens`, `top_p`, `stop`, `frequency_penalty`, `presence_penalty`, `seed`, `n`, and `stream`.
-- A `GET /v1/models` endpoint listing the supported models (including `gpt-4o-mini` as the default, `gpt-4o`, `o1-mini`, and Meta Llama variants).
-- Server-Sent-Events streaming on chat completions.
-
-Operational notes: CORS is enabled, no caller-side API key is required (the proxy supplies its own GitHub token upstream), and there is no published rate limit. Health monitoring on the community catalogue page reports an average response time around 2.5 seconds and roughly 80% reliability, so the service is suitable for experimentation and demos rather than production workloads.
 
 ## Try it
 
@@ -49,27 +36,31 @@ gem install sodeom-ai-proxy-sdk
 luarocks install sodeom-ai-proxy-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { SodeomAiProxySDK } from 'sodeom-ai-proxy'
 
-const client = new SodeomAiProxySDK({})
+const client = new SodeomAiProxySDK({
+  apikey: process.env.SODEOM-AI-PROXY_APIKEY,
+})
 
+// Load ain data
+const ain = await client.Ain().load({})
+console.log(ain.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -99,8 +90,8 @@ The API exposes 2 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Ain** | The AI proxy resource — wraps the OpenAI-compatible chat surface exposed at `/ai` and `/v1/chat/completions`, forwarded to GitHub Models. | `/ai` |
-| **Ain2** | A secondary grouping for the same AI proxy surface, covering the model-listing endpoint at `/v1/models` alongside the chat-completion operations. | `/ai` |
+| **Ain** |  | `/ai` |
+| **Ain2** |  | `/ai` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -110,15 +101,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from sodeomaiproxy_sdk import SodeomAiProxySDK
 
-client = SodeomAiProxySDK({})
+client = SodeomAiProxySDK({
+    "apikey": os.environ.get("SODEOM-AI-PROXY_APIKEY"),
+})
 
 
 # Load a specific ain
-ain, err = client.Ain(None).load(
-    {"id": "example_id"}, None
-)
+ain, err = client.Ain().load({"id": "example_id"})
+print(ain)
 ```
 
 ### PHP
@@ -127,13 +120,14 @@ ain, err = client.Ain(None).load(
 <?php
 require_once 'sodeomaiproxy_sdk.php';
 
-$client = new SodeomAiProxySDK([]);
+$client = new SodeomAiProxySDK([
+    "apikey" => getenv("SODEOM-AI-PROXY_APIKEY"),
+]);
 
 
 // Load a specific ain
-[$ain, $err] = $client->Ain(null)->load(
-    ["id" => "example_id"], null
-);
+[$ain, $err] = $client->Ain()->load(["id" => "example_id"]);
+print_r($ain);
 ```
 
 ### Golang
@@ -141,8 +135,13 @@ $client = new SodeomAiProxySDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go"
 
-client := sdk.NewSodeomAiProxySDK(map[string]any{})
+client := sdk.NewSodeomAiProxySDK(map[string]any{
+    "apikey": os.Getenv("SODEOM-AI-PROXY_APIKEY"),
+})
 
+// Load ain data
+ain, err := client.Ain(nil).Load(map[string]any{}, nil)
+fmt.Println(ain)
 ```
 
 ### Ruby
@@ -150,13 +149,14 @@ client := sdk.NewSodeomAiProxySDK(map[string]any{})
 ```ruby
 require_relative "SodeomAiProxy_sdk"
 
-client = SodeomAiProxySDK.new({})
+client = SodeomAiProxySDK.new({
+  "apikey" => ENV["SODEOM-AI-PROXY_APIKEY"],
+})
 
 
 # Load a specific ain
-ain, err = client.Ain(nil).load(
-  { "id" => "example_id" }, nil
-)
+ain, err = client.Ain().load({ "id" => "example_id" })
+puts ain
 ```
 
 ### Lua
@@ -164,13 +164,14 @@ ain, err = client.Ain(nil).load(
 ```lua
 local sdk = require("sodeom-ai-proxy_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("SODEOM-AI-PROXY_APIKEY"),
+})
 
 
 -- Load a specific ain
-local ain, err = client:Ain(nil):load(
-  { id = "example_id" }, nil
-)
+local ain, err = client:Ain():load({ id = "example_id" })
+print(ain)
 ```
 
 ## Unit testing in offline mode
@@ -189,25 +190,21 @@ const result = await client.Ain().load({ id: 'test01' })
 ### Python
 
 ```python
-client = SodeomAiProxySDK.test(None, None)
-result, err = client.Ain(None).load(
-    {"id": "test01"}, None
-)
+client = SodeomAiProxySDK.test()
+result, err = client.Ain().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = SodeomAiProxySDK::test(null, null);
-[$result, $err] = $client->Ain(null)->load(
-    ["id" => "test01"], null
-);
+$client = SodeomAiProxySDK::test();
+[$result, $err] = $client->Ain()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Ain(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -216,19 +213,15 @@ result, err := client.Ain(nil).Load(
 ### Ruby
 
 ```ruby
-client = SodeomAiProxySDK.test(nil, nil)
-result, err = client.Ain(nil).load(
-  { "id" => "test01" }, nil
-)
+client = SodeomAiProxySDK.test
+result, err = client.Ain().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Ain(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Ain():load({ id = "test01" })
 ```
 
 ## How it works
@@ -332,16 +325,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Sodeom AI Proxy
-
-- Upstream: [https://sodeom.com](https://sodeom.com)
-- API docs: [https://sodeom.com/apis/ai](https://sodeom.com/apis/ai)
-
-- Proprietary service provided by Sodeom (built by Abdul Hadi).
-- Free to use as a public proxy; no API key is required ("pass anything").
-- GitHub token authentication to the upstream GitHub Models API happens server-side.
-- No explicit rate limits or SLA are published; treat the service as best-effort.
 
 ---
 
