@@ -55,6 +55,9 @@ class Ain2Entity
         return new Ain2Entity($this->_client, $opts);
     }
 
+    /**
+     * @param Ain2|array $args Ain2 data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class Ain2Entity
         }
     }
 
+    /**
+     * @return Ain2|array The current Ain2 data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Ain2 fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class Ain2Entity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Ain2 fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -88,7 +100,16 @@ class Ain2Entity
     
 
     
-    public function create($reqdata, $ctrl = null): array
+    /**
+     * Create a new Ain2.
+     *
+     * @param Ain2CreateData|array|null $reqdata Body data as an assoc-array;
+     *   a typed Ain2CreateData names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Ain2|array The created Ain2 as an assoc-array at the
+     *   SDK boundary; throws SodeomAiProxyError on failure (item-5 convention).
+     */
+    public function create(?array $reqdata = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -114,7 +135,7 @@ class Ain2Entity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

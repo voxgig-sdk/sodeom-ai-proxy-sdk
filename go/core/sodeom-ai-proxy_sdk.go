@@ -245,11 +245,17 @@ func (sdk *SodeomAiProxySDK) Direct(fetchargs map[string]any) (map[string]any, e
 }
 
 
+// Ain returns a Ain entity bound to this client.
+// Idiomatic usage: client.Ain(nil).List(nil, nil) or
+// client.Ain(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *SodeomAiProxySDK) Ain(data map[string]any) SodeomAiProxyEntity {
 	return NewAinEntityFunc(sdk, data)
 }
 
 
+// Ain2 returns a Ain2 entity bound to this client.
+// Idiomatic usage: client.Ain2(nil).List(nil, nil) or
+// client.Ain2(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *SodeomAiProxySDK) Ain2(data map[string]any) SodeomAiProxyEntity {
 	return NewAin2EntityFunc(sdk, data)
 }

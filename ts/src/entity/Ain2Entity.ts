@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Ain2,
+  Ain2CreateData,
+} from '../SodeomAiProxyTypes'
 
 // TODO: needs Entity superclass
-class Ain2Entity extends SodeomAiProxyEntityBase {
+class Ain2Entity extends SodeomAiProxyEntityBase<Ain2> {
 
   constructor(client: SodeomAiProxySDK, entopts: any) {
     super(client, entopts)
@@ -34,7 +38,7 @@ class Ain2Entity extends SodeomAiProxyEntityBase {
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: Ain2CreateData, ctrl?: Control): Promise<Ain2> {
 
     const utility = this._utility
     const {
@@ -133,7 +137,9 @@ class Ain2Entity extends SodeomAiProxyEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Ain2> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

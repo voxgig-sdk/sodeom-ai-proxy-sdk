@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -122,7 +121,7 @@ Alias for `SodeomAiProxySDK.test()`.
 ## AinEntity
 
 ```ts
-const ain = client.Ain()
+const ain = client.ain
 ```
 
 ### Fields
@@ -138,7 +137,7 @@ const ain = client.Ain()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Ain().load({ id: 'ain_id' })
+const result = await client.ain.load({ id: 'ain_id' })
 ```
 
 ### Common Methods
@@ -172,7 +171,7 @@ Return a copy of the entity options.
 ## Ain2Entity
 
 ```ts
-const ain2 = client.Ain2()
+const ain2 = client.ain2
 ```
 
 ### Fields
@@ -192,7 +191,7 @@ const ain2 = client.Ain2()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Ain2().create({
+const result = await client.ain2.create({
   answer: /* `$STRING` */,
   message: /* `$ARRAY` */,
 })

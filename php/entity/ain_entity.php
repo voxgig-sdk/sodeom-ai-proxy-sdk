@@ -55,6 +55,9 @@ class AinEntity
         return new AinEntity($this->_client, $opts);
     }
 
+    /**
+     * @param Ain|array $args Ain data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class AinEntity
         }
     }
 
+    /**
+     * @return Ain|array The current Ain data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of Ain fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class AinEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of Ain fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -84,7 +96,16 @@ class AinEntity
     }
 
     
-    public function load($reqmatch, $ctrl = null): array
+    /**
+     * Load a single Ain.
+     *
+     * @param AinLoadMatch|array|null $reqmatch Match criteria (id/query
+     *   fields) as an assoc-array; a typed AinLoadMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Ain|array The loaded Ain as an assoc-array at the
+     *   SDK boundary; throws SodeomAiProxyError on failure (item-5 convention).
+     */
+    public function load(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -117,7 +138,7 @@ class AinEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

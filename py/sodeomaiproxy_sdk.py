@@ -144,16 +144,23 @@ class SodeomAiProxySDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class SodeomAiProxySDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,20 +212,42 @@ class SodeomAiProxySDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def ain(self):
+        """Idiomatic facade: client.ain.list() / client.ain.load({"id": ...})."""
+        from entity.ain_entity import AinEntity
+        cached = getattr(self, "_ain", None)
+        if cached is None:
+            cached = AinEntity(self, None)
+            self._ain = cached
+        return cached
 
     def Ain(self, data=None):
+        # Deprecated: use client.ain instead.
         from entity.ain_entity import AinEntity
         return AinEntity(self, data)
 
 
+    @property
+    def ain2(self):
+        """Idiomatic facade: client.ain2.list() / client.ain2.load({"id": ...})."""
+        from entity.ain2_entity import Ain2Entity
+        cached = getattr(self, "_ain2", None)
+        if cached is None:
+            cached = Ain2Entity(self, None)
+            self._ain2 = cached
+        return cached
+
     def Ain2(self, data=None):
+        # Deprecated: use client.ain2 instead.
         from entity.ain2_entity import Ain2Entity
         return Ain2Entity(self, data)
 

@@ -83,6 +83,10 @@ end
 
 
 
+---@param reqdata Ain2CreateData
+---@param ctrl? table
+---@return Ain2
+---@return string? err
 function Ain2Entity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

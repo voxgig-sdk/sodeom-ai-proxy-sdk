@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -88,7 +87,7 @@ same parameters as `direct()`.
 ## AinEntity
 
 ```lua
-local ain = client:Ain(nil)
+local ain = client:ain(nil)
 ```
 
 ### Fields
@@ -104,7 +103,7 @@ local ain = client:Ain(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Ain():load({ id = "ain_id" })
+local result, err = client:ain():load({ id = "ain_id" })
 ```
 
 ### Common Methods
@@ -140,7 +139,7 @@ Return the entity name.
 ## Ain2Entity
 
 ```lua
-local ain2 = client:Ain2(nil)
+local ain2 = client:ain2(nil)
 ```
 
 ### Fields
@@ -160,7 +159,7 @@ local ain2 = client:Ain2(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Ain2():create({
+local result, err = client:ain2():create({
   answer = --[[ `$STRING` ]],
   message = --[[ `$ARRAY` ]],
 })

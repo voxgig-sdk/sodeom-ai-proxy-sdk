@@ -49,8 +49,7 @@ class TestAinEntity:
         # LOAD
         ain_ref01_ent = client.Ain(None)
         ain_ref01_match_dt0 = {}
-        ain_ref01_data_dt0_loaded, err = ain_ref01_ent.load(ain_ref01_match_dt0, None)
-        assert err is None
+        ain_ref01_data_dt0_loaded = ain_ref01_ent.load(ain_ref01_match_dt0, None)
         assert ain_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _ain_basic_setup(extra):
         "SODEOMAIPROXY_TEST_AIN_ENTID": idmap,
         "SODEOMAIPROXY_TEST_LIVE": "FALSE",
         "SODEOMAIPROXY_TEST_EXPLAIN": "FALSE",
-        "SODEOMAIPROXY_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _ain_basic_setup(extra):
     if env.get("SODEOMAIPROXY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("SODEOMAIPROXY_APIKEY"),
             },
             extra or {},
         ])

@@ -44,9 +44,7 @@ class TestAin2Entity:
         ain2_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.ain2"), "ain2_ref01"))
 
-        ain2_ref01_data_result, err = ain2_ref01_ent.create(ain2_ref01_data, None)
-        assert err is None
-        ain2_ref01_data = helpers.to_map(ain2_ref01_data_result)
+        ain2_ref01_data = helpers.to_map(ain2_ref01_ent.create(ain2_ref01_data, None))
         assert ain2_ref01_data is not None
 
 
@@ -87,7 +85,6 @@ def _ain2_basic_setup(extra):
         "SODEOMAIPROXY_TEST_AIN__ENTID": idmap,
         "SODEOMAIPROXY_TEST_LIVE": "FALSE",
         "SODEOMAIPROXY_TEST_EXPLAIN": "FALSE",
-        "SODEOMAIPROXY_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -98,7 +95,6 @@ def _ain2_basic_setup(extra):
     if env.get("SODEOMAIPROXY_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("SODEOMAIPROXY_APIKEY"),
             },
             extra or {},
         ])

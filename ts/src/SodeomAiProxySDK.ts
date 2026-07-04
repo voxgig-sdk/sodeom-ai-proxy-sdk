@@ -3,6 +3,8 @@
 import { AinEntity } from './entity/AinEntity'
 import { Ain2Entity } from './entity/Ain2Entity'
 
+export type * from './SodeomAiProxyTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -203,12 +205,28 @@ class SodeomAiProxySDK {
 
 
 
+  _ain?: AinEntity
+
+  // Idiomatic facade: `client.ain.list()` / `client.ain.load({ id })`.
+  get ain(): AinEntity {
+    return (this._ain ??= new AinEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.ain` instead. */
   Ain(data?: any) {
     const self = this
     return new AinEntity(self,data)
   }
 
 
+  _ain2?: Ain2Entity
+
+  // Idiomatic facade: `client.ain2.list()` / `client.ain2.load({ id })`.
+  get ain2(): Ain2Entity {
+    return (this._ain2 ??= new Ain2Entity(this, undefined))
+  }
+
+  /** @deprecated Use `client.ain2` instead. */
   Ain2(data?: any) {
     const self = this
     return new Ain2Entity(self,data)

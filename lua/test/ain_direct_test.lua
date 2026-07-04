@@ -68,14 +68,12 @@ function ain_direct_setup(mockres)
   local env = runner.env_override({
     ["SODEOMAIPROXY_TEST_AIN_ENTID"] = {},
     ["SODEOMAIPROXY_TEST_LIVE"] = "FALSE",
-    ["SODEOMAIPROXY_APIKEY"] = "NONE",
   })
 
   local live = env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["SODEOMAIPROXY_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

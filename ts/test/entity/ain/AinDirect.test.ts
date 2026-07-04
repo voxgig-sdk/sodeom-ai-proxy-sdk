@@ -78,14 +78,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'SODEOMAIPROXY_TEST_AIN_ENTID': {},
     'SODEOMAIPROXY_TEST_LIVE': 'FALSE',
-    'SODEOMAIPROXY_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.SODEOMAIPROXY_TEST_LIVE
 
   if (live) {
     const client = new SodeomAiProxySDK({
-      apikey: env.SODEOMAIPROXY_APIKEY,
     })
 
     let idmap: any = env['SODEOMAIPROXY_TEST_AIN_ENTID']

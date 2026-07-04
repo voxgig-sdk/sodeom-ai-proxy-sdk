@@ -43,8 +43,7 @@ class Ain2EntityTest extends TestCase
         $ain2_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.ain2"), "ain2_ref01"));
 
-        [$ain2_ref01_data_result, $err] = $ain2_ref01_ent->create($ain2_ref01_data, null);
-        $this->assertNull($err);
+        $ain2_ref01_data_result = $ain2_ref01_ent->create($ain2_ref01_data, null);
         $ain2_ref01_data = Helpers::to_map($ain2_ref01_data_result);
         $this->assertNotNull($ain2_ref01_data);
 
@@ -80,7 +79,6 @@ function ain2_basic_setup($extra)
         "SODEOMAIPROXY_TEST_AIN__ENTID" => $idmap,
         "SODEOMAIPROXY_TEST_LIVE" => "FALSE",
         "SODEOMAIPROXY_TEST_EXPLAIN" => "FALSE",
-        "SODEOMAIPROXY_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -92,7 +90,6 @@ function ain2_basic_setup($extra)
     if ($env["SODEOMAIPROXY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["SODEOMAIPROXY_APIKEY"],
             ],
             $extra ?? [],
         ]);

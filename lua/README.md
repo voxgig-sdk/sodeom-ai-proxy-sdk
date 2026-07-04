@@ -9,12 +9,9 @@ The Lua SDK for the SodeomAiProxy API — an entity-oriented client using Lua co
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-sodeom-ai-proxy
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("sodeom-ai-proxy_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("SODEOM-AI-PROXY_APIKEY"),
-})
+local client = sdk.new()
 ```
 
-### 3. Load a ain
+### 3. Load an ain
 
 ```lua
-local result, err = client:Ain():load({ id = "example_id" })
+local result, err = client:ain():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -87,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:SodeomAiProxy():load({ id = "test01" })
+local result, err = client:ain():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -120,8 +115,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-SODEOM-AI-PROXY_TEST_LIVE=TRUE
-SODEOM-AI-PROXY_APIKEY=<your-key>
+SODEOM_AI_PROXY_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -144,7 +138,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -236,7 +229,7 @@ API path: `/ai`
 
 ### Ain
 
-Create an instance: `const ain = client.Ain()`
+Create an instance: `const ain = client.ain`
 
 #### Operations
 
@@ -253,13 +246,13 @@ Create an instance: `const ain = client.Ain()`
 #### Example: Load
 
 ```ts
-const ain = await client.Ain().load({ id: 'ain_id' })
+const ain = await client.ain.load({ id: 'ain_id' })
 ```
 
 
 ### Ain2
 
-Create an instance: `const ain2 = client.Ain2()`
+Create an instance: `const ain2 = client.ain2`
 
 #### Operations
 
@@ -280,7 +273,7 @@ Create an instance: `const ain2 = client.Ain2()`
 #### Example: Create
 
 ```ts
-const ain2 = await client.Ain2().create({
+const ain2 = await client.ain2.create({
   answer: /* `$STRING` */,
   message: /* `$ARRAY` */,
 })
@@ -358,11 +351,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local ain = client:ain()
+ain:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- ain:data_get() now returns the loaded ain data
+-- ain:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

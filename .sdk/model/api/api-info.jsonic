@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       contact: {
         name: "Sodeom Support"
         url: "https://sodeom.com"
