@@ -205,28 +205,14 @@ class SodeomAiProxySDK {
 
 
 
-  _ain?: AinEntity
-
-  // Idiomatic facade: `client.ain.list()` / `client.ain.load({ id })`.
-  get ain(): AinEntity {
-    return (this._ain ??= new AinEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.ain` instead. */
+  // Entity access: `client.Ain().list()` / `client.Ain().load({ id })`.
   Ain(data?: any) {
     const self = this
     return new AinEntity(self,data)
   }
 
 
-  _ain2?: Ain2Entity
-
-  // Idiomatic facade: `client.ain2.list()` / `client.ain2.load({ id })`.
-  get ain2(): Ain2Entity {
-    return (this._ain2 ??= new Ain2Entity(this, undefined))
-  }
-
-  /** @deprecated Use `client.ain2` instead. */
+  // Entity access: `client.Ain2().list()` / `client.Ain2().load({ id })`.
   Ain2(data?: any) {
     const self = this
     return new Ain2Entity(self,data)

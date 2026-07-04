@@ -90,7 +90,7 @@ same parameters as `direct()`. Raises on error.
 ## AinEntity
 
 ```ruby
-ain = client.ain
+ain = client.Ain
 ```
 
 ### Fields
@@ -106,7 +106,7 @@ ain = client.ain
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.ain.load({ "id" => "ain_id" })
+result = client.Ain.load({ "id" => "ain_id" })
 ```
 
 ### Common Methods
@@ -142,7 +142,7 @@ Return the entity name.
 ## Ain2Entity
 
 ```ruby
-ain2 = client.ain2
+ain2 = client.Ain2
 ```
 
 ### Fields
@@ -162,7 +162,7 @@ ain2 = client.ain2
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.ain2.create({
+result = client.Ain2.create({
   "answer" => # `$STRING`,
   "message" => # `$ARRAY`,
 })

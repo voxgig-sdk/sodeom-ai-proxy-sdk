@@ -33,9 +33,10 @@ $client = new SodeomAiProxySDK();
 
 ```php
 try {
-    $result = $client->ain()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Ain record (throws on error).
+    $ain = $client->Ain()->load(["id" => "example_id"]);
+    print_r($ain);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -81,13 +82,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = SodeomAiProxySDK::test();
+$client = SodeomAiProxySDK::test([
+    "entity" => ["ain" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->ain()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$ain = $client->Ain()->load(["id" => "test01"]);
+print_r($ain);
 ```
 
 ### Use a custom fetch function
@@ -166,8 +171,8 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `get_utility` | `(): Utility` | Copy of the SDK utility object. |
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
-| `Ain` | `($data): AinEntity` | Create a Ain entity instance. |
-| `Ain2` | `($data): Ain2Entity` | Create a Ain2 entity instance. |
+| `Ain` | `($data): AinEntity` | Create an Ain entity instance. |
+| `Ain2` | `($data): Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -238,7 +243,7 @@ API path: `/ai`
 
 ### Ain
 
-Create an instance: `const ain = client.ain`
+Create an instance: `$ain = $client->Ain();`
 
 #### Operations
 
@@ -254,14 +259,15 @@ Create an instance: `const ain = client.ain`
 
 #### Example: Load
 
-```ts
-const ain = await client.ain.load({ id: 'ain_id' })
+```php
+// load() returns the bare Ain record (throws on error).
+$ain = $client->Ain()->load(["id" => "ain_id"]);
 ```
 
 
 ### Ain2
 
-Create an instance: `const ain2 = client.ain2`
+Create an instance: `$ain2 = $client->Ain2();`
 
 #### Operations
 
@@ -281,11 +287,11 @@ Create an instance: `const ain2 = client.ain2`
 
 #### Example: Create
 
-```ts
-const ain2 = await client.ain2.create({
-  answer: /* `$STRING` */,
-  message: /* `$ARRAY` */,
-})
+```php
+$ain2 = $client->Ain2()->create([
+    "answer" => null, // `$STRING`
+    "message" => null, // `$ARRAY`
+]);
 ```
 
 
@@ -360,7 +366,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$ain = $client->ain();
+$ain = $client->Ain();
 $ain->load(["id" => "example_id"]);
 
 // $ain->dataGet() now returns the loaded ain data

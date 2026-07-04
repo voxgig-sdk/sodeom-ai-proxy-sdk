@@ -121,7 +121,7 @@ Alias for `SodeomAiProxySDK.test()`.
 ## AinEntity
 
 ```ts
-const ain = client.ain
+const ain = client.Ain()
 ```
 
 ### Fields
@@ -137,7 +137,7 @@ const ain = client.ain
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.ain.load({ id: 'ain_id' })
+const result = await client.Ain().load({ id: 'ain_id' })
 ```
 
 ### Common Methods
@@ -171,7 +171,7 @@ Return a copy of the entity options.
 ## Ain2Entity
 
 ```ts
-const ain2 = client.ain2
+const ain2 = client.Ain2()
 ```
 
 ### Fields
@@ -191,7 +191,7 @@ const ain2 = client.ain2
 Create a new entity with the given data.
 
 ```ts
-const result = await client.ain2.create({
+const result = await client.Ain2().create({
   answer: /* `$STRING` */,
   message: /* `$ARRAY` */,
 })

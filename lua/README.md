@@ -34,9 +34,9 @@ local client = sdk.new()
 ### 3. Load an ain
 
 ```lua
-local result, err = client:ain():load({ id = "example_id" })
+local ain, err = client:Ain():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(ain)
 ```
 
 
@@ -82,8 +82,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ain():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Ain():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -161,8 +161,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
-| `Ain` | `(data) -> AinEntity` | Create a Ain entity instance. |
-| `Ain2` | `(data) -> Ain2Entity` | Create a Ain2 entity instance. |
+| `Ain` | `(data) -> AinEntity` | Create an Ain entity instance. |
+| `Ain2` | `(data) -> Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -184,17 +184,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local ain, err = client:Ain():load({ id = "example_id" })
+    if err then error(err) end
+    -- ain is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -229,7 +234,7 @@ API path: `/ai`
 
 ### Ain
 
-Create an instance: `const ain = client.ain`
+Create an instance: `local ain = client:Ain(nil)`
 
 #### Operations
 
@@ -245,14 +250,14 @@ Create an instance: `const ain = client.ain`
 
 #### Example: Load
 
-```ts
-const ain = await client.ain.load({ id: 'ain_id' })
+```lua
+local ain, err = client:Ain():load({ id = "ain_id" })
 ```
 
 
 ### Ain2
 
-Create an instance: `const ain2 = client.ain2`
+Create an instance: `local ain2 = client:Ain2(nil)`
 
 #### Operations
 
@@ -272,10 +277,10 @@ Create an instance: `const ain2 = client.ain2`
 
 #### Example: Create
 
-```ts
-const ain2 = await client.ain2.create({
-  answer: /* `$STRING` */,
-  message: /* `$ARRAY` */,
+```lua
+local ain2, err = client:Ain2():create({
+  answer = nil, -- `$STRING`
+  message = nil, -- `$ARRAY`
 })
 ```
 
@@ -351,7 +356,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local ain = client:ain()
+local ain = client:Ain()
 ain:load({ id = "example_id" })
 
 -- ain:data_get() now returns the loaded ain data

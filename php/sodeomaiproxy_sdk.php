@@ -233,10 +233,10 @@ class SodeomAiProxySDK
 
     private $_ain = null;
 
-    // Idiomatic facade: $client->ain()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Ain() (PHP method
-    // names are case-insensitive).
-    public function ain($data = null)
+    // Canonical facade: $client->Ain()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->ain()
+    // resolves here too.
+    public function Ain($data = null)
     {
         require_once __DIR__ . '/entity/ain_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class SodeomAiProxySDK
 
     private $_ain2 = null;
 
-    // Idiomatic facade: $client->ain2()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Ain2() (PHP method
-    // names are case-insensitive).
-    public function ain2($data = null)
+    // Canonical facade: $client->Ain2()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->ain2()
+    // resolves here too.
+    public function Ain2($data = null)
     {
         require_once __DIR__ . '/entity/ain2_entity.php';
         if ($data === null) {

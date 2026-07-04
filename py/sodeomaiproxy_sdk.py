@@ -220,41 +220,21 @@ class SodeomAiProxySDK:
         }
 
 
-    @property
-    def ain(self):
-        """Idiomatic facade: client.ain.list() / client.ain.load({"id": ...})."""
-        from entity.ain_entity import AinEntity
-        cached = getattr(self, "_ain", None)
-        if cached is None:
-            cached = AinEntity(self, None)
-            self._ain = cached
-        return cached
-
-    def Ain(self, data=None):
-        # Deprecated: use client.ain instead.
+    def Ain(self, data=None) -> "AinEntity":
+        """Entity factory: client.Ain().list({}) / client.Ain().load({"id": ...})."""
         from entity.ain_entity import AinEntity
         return AinEntity(self, data)
 
 
-    @property
-    def ain2(self):
-        """Idiomatic facade: client.ain2.list() / client.ain2.load({"id": ...})."""
-        from entity.ain2_entity import Ain2Entity
-        cached = getattr(self, "_ain2", None)
-        if cached is None:
-            cached = Ain2Entity(self, None)
-            self._ain2 = cached
-        return cached
-
-    def Ain2(self, data=None):
-        # Deprecated: use client.ain2 instead.
+    def Ain2(self, data=None) -> "Ain2Entity":
+        """Entity factory: client.Ain2().list({}) / client.Ain2().load({"id": ...})."""
         from entity.ain2_entity import Ain2Entity
         return Ain2Entity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "SodeomAiProxySDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -274,3 +254,10 @@ class SodeomAiProxySDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.ain_entity import AinEntity
+    from entity.ain2_entity import Ain2Entity

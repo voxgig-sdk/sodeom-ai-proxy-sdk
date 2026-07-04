@@ -208,26 +208,14 @@ class SodeomAiProxySDK
   end
 
 
-  # Idiomatic facade: client.ain.list / client.ain.load({ "id" => ... })
-  def ain
-    require_relative 'entity/ain_entity'
-    @ain ||= AinEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.ain instead.
+  # Canonical facade: client.Ain.list / client.Ain.load({ "id" => ... })
   def Ain(data = nil)
     require_relative 'entity/ain_entity'
     AinEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.ain2.list / client.ain2.load({ "id" => ... })
-  def ain2
-    require_relative 'entity/ain2_entity'
-    @ain2 ||= Ain2Entity.new(self, nil)
-  end
-
-  # Deprecated: use client.ain2 instead.
+  # Canonical facade: client.Ain2.list / client.Ain2.load({ "id" => ... })
   def Ain2(data = nil)
     require_relative 'entity/ain2_entity'
     Ain2Entity.new(self, data)

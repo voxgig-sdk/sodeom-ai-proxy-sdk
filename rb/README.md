@@ -32,8 +32,9 @@ client = SodeomAiProxySDK.new
 
 ```ruby
 begin
-  result = client.ain.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Ain record (raises on error).
+  ain = client.Ain.load({ "id" => "example_id" })
+  puts ain
 rescue => err
   warn "load failed: #{err}"
 end
@@ -80,13 +81,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = SodeomAiProxySDK.test
+client = SodeomAiProxySDK.test({
+  "entity" => { "ain" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.ain.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+ain = client.Ain.load({ "id" => "test01" })
+puts ain
 ```
 
 ### Use a custom fetch function
@@ -162,8 +167,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Ain` | `(data) -> AinEntity` | Create a Ain entity instance. |
-| `Ain2` | `(data) -> Ain2Entity` | Create a Ain2 entity instance. |
+| `Ain` | `(data) -> AinEntity` | Create an Ain entity instance. |
+| `Ain2` | `(data) -> Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -233,7 +238,7 @@ API path: `/ai`
 
 ### Ain
 
-Create an instance: `const ain = client.ain`
+Create an instance: `ain = client.Ain`
 
 #### Operations
 
@@ -249,14 +254,15 @@ Create an instance: `const ain = client.ain`
 
 #### Example: Load
 
-```ts
-const ain = await client.ain.load({ id: 'ain_id' })
+```ruby
+# load returns the bare Ain record (raises on error).
+ain = client.Ain.load({ "id" => "ain_id" })
 ```
 
 
 ### Ain2
 
-Create an instance: `const ain2 = client.ain2`
+Create an instance: `ain2 = client.Ain2`
 
 #### Operations
 
@@ -276,10 +282,10 @@ Create an instance: `const ain2 = client.ain2`
 
 #### Example: Create
 
-```ts
-const ain2 = await client.ain2.create({
-  answer: /* `$STRING` */,
-  message: /* `$ARRAY` */,
+```ruby
+ain2 = client.Ain2.create({
+  "answer" => nil, # `$STRING`
+  "message" => nil, # `$ARRAY`
 })
 ```
 
@@ -355,7 +361,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-ain = client.ain
+ain = client.Ain
 ain.load({ "id" => "example_id" })
 
 # ain.data_get now returns the loaded ain data

@@ -33,10 +33,12 @@ client = SodeomAiProxySDK()
 
 ### 3. Load an ain
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.ain.load({"id": "example_id"})
-    print(result)
+    ain = client.Ain().load({"id": "example_id"})
+    print(ain)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -84,8 +86,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = SodeomAiProxySDK.test()
 
-result = client.ain.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+ain = client.Ain().load({"id": "test01"})
+# ain contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -161,8 +164,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
-| `Ain` | `(data) -> AinEntity` | Create a Ain entity instance. |
-| `Ain2` | `(data) -> Ain2Entity` | Create a Ain2 entity instance. |
+| `Ain` | `(data) -> AinEntity` | Create an Ain entity instance. |
+| `Ain2` | `(data) -> Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -233,7 +236,7 @@ API path: `/ai`
 
 ### Ain
 
-Create an instance: `const ain = client.ain`
+Create an instance: `ain = client.Ain()`
 
 #### Operations
 
@@ -249,14 +252,14 @@ Create an instance: `const ain = client.ain`
 
 #### Example: Load
 
-```ts
-const ain = await client.ain.load({ id: 'ain_id' })
+```python
+ain = client.Ain().load({"id": "ain_id"})
 ```
 
 
 ### Ain2
 
-Create an instance: `const ain2 = client.ain2`
+Create an instance: `ain2 = client.Ain2()`
 
 #### Operations
 
@@ -276,10 +279,10 @@ Create an instance: `const ain2 = client.ain2`
 
 #### Example: Create
 
-```ts
-const ain2 = await client.ain2.create({
-  answer: /* `$STRING` */,
-  message: /* `$ARRAY` */,
+```python
+ain2 = client.Ain2().create({
+    "answer": ...,  # `$STRING`
+    "message": ...,  # `$ARRAY`
 })
 ```
 
@@ -354,7 +357,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-ain = client.ain
+ain = client.Ain()
 ain.load({"id": "example_id"})
 
 # ain.data_get() now returns the loaded ain data

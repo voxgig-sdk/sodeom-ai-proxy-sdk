@@ -26,9 +26,9 @@ import { SodeomAiProxySDK } from '@voxgig-sdk/sodeom-ai-proxy'
 
 const client = new SodeomAiProxySDK()
 
-// Load ain data
-const ain = await client.ain.load({})
-console.log(ain.data)
+// Load ain data (returns a Ain)
+const ain = await client.Ain().load()
+console.log(ain)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -85,8 +85,8 @@ from sodeomaiproxy_sdk import SodeomAiProxySDK
 client = SodeomAiProxySDK()
 
 
-# Load a specific ain
-ain = client.ain.load({"id": "example_id"})
+# Load a specific ain (returns the record, raises on error)
+ain = client.Ain().load({"id": "example_id"})
 print(ain)
 ```
 
@@ -99,8 +99,8 @@ require_once 'sodeomaiproxy_sdk.php';
 $client = new SodeomAiProxySDK();
 
 
-// Load a specific ain
-$ain = $client->ain()->load(["id" => "example_id"]);
+// Load a specific ain (returns the bare record; throws on error)
+$ain = $client->Ain()->load(["id" => "example_id"]);
 print_r($ain);
 ```
 
@@ -124,8 +124,8 @@ require_relative "SodeomAiProxy_sdk"
 client = SodeomAiProxySDK.new
 
 
-# Load a specific ain
-ain = client.ain.load({ "id" => "example_id" })
+# Load a specific ain (returns the bare record; raises on error)
+ain = client.Ain.load({ "id" => "example_id" })
 puts ain
 ```
 
@@ -138,7 +138,7 @@ local client = sdk.new()
 
 
 -- Load a specific ain
-local ain, err = client:ain():load({ id = "example_id" })
+local ain, err = client:Ain():load({ id = "example_id" })
 print(ain)
 ```
 
@@ -151,22 +151,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = SodeomAiProxySDK.test()
-const result = await client.ain.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const ain = await client.Ain().load({ id: 'test01' })
+// ain is a bare Ain populated with mock data
+console.log(ain)
 ```
 
 ### Python
 
 ```python
 client = SodeomAiProxySDK.test()
-result = client.ain.load({"id": "test01"})
+ain = client.Ain().load({"id": "test01"})
+print(ain)
 ```
 
 ### PHP
 
 ```php
-$client = SodeomAiProxySDK::test();
-$result = $client->ain()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = SodeomAiProxySDK::test([
+    "entity" => ["ain" => ["test01" => ["id" => "test01"]]],
+]);
+$ain = $client->Ain()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -181,15 +186,18 @@ result, err := client.Ain(nil).Load(
 ### Ruby
 
 ```ruby
-client = SodeomAiProxySDK.test
-result = client.ain.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = SodeomAiProxySDK.test({
+  "entity" => { "ain" => { "test01" => { "id" => "test01" } } },
+})
+ain = client.Ain.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:ain():load({ id = "test01" })
+local result, err = client:Ain():load({ id = "test01" })
 ```
 
 ## How it works
@@ -237,6 +245,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:ain():list() / client:ain():load({ id = ... })
-function SodeomAiProxySDK:ain(data)
+-- Idiomatic facade: client:Ain():list() / client:Ain():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function SodeomAiProxySDK:Ain(data)
   local EntityMod = require("entity.ain_entity")
   if data == nil then
     if self._ain == nil then
@@ -256,15 +257,10 @@ function SodeomAiProxySDK:ain(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:ain() instead.
-function SodeomAiProxySDK:Ain(data)
-  local EntityMod = require("entity.ain_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:ain2():list() / client:ain2():load({ id = ... })
-function SodeomAiProxySDK:ain2(data)
+-- Idiomatic facade: client:Ain2():list() / client:Ain2():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function SodeomAiProxySDK:Ain2(data)
   local EntityMod = require("entity.ain2_entity")
   if data == nil then
     if self._ain2 == nil then
@@ -272,12 +268,6 @@ function SodeomAiProxySDK:ain2(data)
     end
     return self._ain2
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:ain2() instead.
-function SodeomAiProxySDK:Ain2(data)
-  local EntityMod = require("entity.ain2_entity")
   return EntityMod.new(self, data)
 end
 
