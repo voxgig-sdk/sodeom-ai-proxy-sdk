@@ -8,7 +8,7 @@ Complete API reference for the SodeomAiProxy Python SDK.
 ### Constructor
 
 ```python
-from sodeom-ai-proxy_sdk import SodeomAiProxySDK
+from sodeomaiproxy_sdk import SodeomAiProxySDK
 
 client = SodeomAiProxySDK(options)
 ```
@@ -91,7 +91,7 @@ ain = client.Ain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
+| `answer` | `str` | Yes |  |
 
 ### Operations
 
@@ -100,7 +100,7 @@ ain = client.Ain()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Ain().load({"id": "ain_id"})
+result = client.Ain().load()
 ```
 
 ### Common Methods
@@ -142,11 +142,11 @@ ain2 = client.Ain2()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
+| `answer` | `str` | Yes |  |
+| `max_token` | `int` | No |  |
+| `message` | `list` | Yes |  |
+| `model` | `str` | No |  |
+| `temperature` | `float` | No |  |
 
 ### Operations
 
@@ -156,8 +156,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Ain2().create({
-    "answer": ...,  # `$STRING`
-    "message": ...,  # `$ARRAY`
+    "answer": "example",  # str
+    "message": [],  # list
 })
 ```
 

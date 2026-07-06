@@ -128,7 +128,7 @@ const ain = client.Ain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
+| `answer` | `string` | Yes |  |
 
 ### Operations
 
@@ -137,7 +137,7 @@ const ain = client.Ain()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Ain().load({ id: 'ain_id' })
+const result = await client.Ain().load()
 ```
 
 ### Common Methods
@@ -178,11 +178,11 @@ const ain2 = client.Ain2()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
+| `answer` | `string` | Yes |  |
+| `max_token` | `number` | No |  |
+| `message` | `any[]` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `number` | No |  |
 
 ### Operations
 
@@ -192,8 +192,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Ain2().create({
-  answer: /* `$STRING` */,
-  message: /* `$ARRAY` */,
+  answer: /* string */,
+  message: /* any[] */,
 })
 ```
 

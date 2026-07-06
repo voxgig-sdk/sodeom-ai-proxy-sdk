@@ -94,7 +94,7 @@ local ain = client:Ain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
+| `answer` | `string` | Yes |  |
 
 ### Operations
 
@@ -103,7 +103,7 @@ local ain = client:Ain(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Ain():load({ id = "ain_id" })
+local result, err = client:Ain():load()
 ```
 
 ### Common Methods
@@ -146,11 +146,11 @@ local ain2 = client:Ain2(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
+| `answer` | `string` | Yes |  |
+| `max_token` | `number` | No |  |
+| `message` | `table` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `number` | No |  |
 
 ### Operations
 
@@ -160,8 +160,8 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Ain2():create({
-  answer = --[[ `$STRING` ]],
-  message = --[[ `$ARRAY` ]],
+  answer = --[[ string ]],
+  message = --[[ table ]],
 })
 ```
 

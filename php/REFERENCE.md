@@ -8,7 +8,7 @@ Complete API reference for the SodeomAiProxy PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/sodeom-ai-proxy_sdk.php';
+require_once __DIR__ . '/sodeomaiproxy_sdk.php';
 
 $client = new SodeomAiProxySDK($options);
 ```
@@ -49,11 +49,11 @@ Create a new `AinEntity` instance. Pass `null` for no initial data.
 
 Create a new `Ain2Entity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): SodeomAiProxyUtility`
 
 Return a copy of the SDK utility object.
 
@@ -96,7 +96,7 @@ $ain = $client->Ain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
+| `answer` | `string` | Yes |  |
 
 ### Operations
 
@@ -105,24 +105,24 @@ $ain = $client->Ain();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Ain()->load(["id" => "ain_id"]);
+$result = $client->Ain()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -131,7 +131,7 @@ Set the entity match criteria.
 Create a new `AinEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -148,11 +148,11 @@ $ain2 = $client->Ain2();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
+| `answer` | `string` | Yes |  |
+| `max_token` | `int` | No |  |
+| `message` | `array` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `float` | No |  |
 
 ### Operations
 
@@ -162,26 +162,26 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Ain2()->create([
-  "answer" => /* `$STRING` */,
-  "message" => /* `$ARRAY` */,
+  "answer" => null, // string
+  "message" => null, // array
 ]);
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -190,7 +190,7 @@ Set the entity match criteria.
 Create a new `Ain2Entity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

@@ -10,6 +10,7 @@
 ---@field answer string
 
 ---@class AinLoadMatch
+---@field answer? string
 
 ---@class Ain2
 ---@field answer string
@@ -19,6 +20,11 @@
 ---@field temperature? number
 
 ---@class Ain2CreateData
+---@field answer string
+---@field max_token? number
+---@field message table
+---@field model? string
+---@field temperature? number
 
 local M = {}
 

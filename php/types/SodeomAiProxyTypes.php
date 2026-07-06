@@ -18,7 +18,7 @@ class Ain
     public string $answer;
 }
 
-/** Match filter for Ain#load (any subset of Ain fields). */
+/** Request payload for Ain#load. */
 class AinLoadMatch
 {
     public ?string $answer = null;
@@ -34,12 +34,12 @@ class Ain2
     public ?float $temperature = null;
 }
 
-/** Match filter for Ain2#create (any subset of Ain2 fields). */
+/** Request payload for Ain2#create. */
 class Ain2CreateData
 {
-    public ?string $answer = null;
+    public string $answer;
     public ?int $max_token = null;
-    public ?array $message = null;
+    public array $message;
     public ?string $model = null;
     public ?float $temperature = null;
 }

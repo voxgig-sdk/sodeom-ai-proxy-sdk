@@ -35,9 +35,12 @@ class Ain2(Ain2Required, total=False):
     temperature: float
 
 
-class Ain2CreateData(TypedDict, total=False):
+class Ain2CreateDataRequired(TypedDict):
     answer: str
-    max_token: int
     message: list
+
+
+class Ain2CreateData(Ain2CreateDataRequired, total=False):
+    max_token: int
     model: str
     temperature: float

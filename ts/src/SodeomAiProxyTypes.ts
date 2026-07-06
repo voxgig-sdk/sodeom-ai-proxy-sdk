@@ -9,7 +9,9 @@ export interface Ain {
   answer: string
 }
 
-export type AinLoadMatch = Partial<Ain>
+export interface AinLoadMatch {
+  answer?: string
+}
 
 export interface Ain2 {
   answer: string
@@ -19,5 +21,11 @@ export interface Ain2 {
   temperature?: number
 }
 
-export type Ain2CreateData = Partial<Ain2>
+export interface Ain2CreateData {
+  answer: string
+  max_token?: number
+  message: any[]
+  model?: string
+  temperature?: number
+}
 

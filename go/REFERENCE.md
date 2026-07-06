@@ -101,7 +101,7 @@ ain := client.Ain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
+| `answer` | `string` | Yes |  |
 
 ### Operations
 
@@ -110,7 +110,7 @@ ain := client.Ain(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Ain(nil).Load(map[string]any{"id": "ain_id"}, nil)
+result, err := client.Ain(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -147,11 +147,11 @@ ain2 := client.Ain2(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
+| `answer` | `string` | Yes |  |
+| `max_token` | `int` | No |  |
+| `message` | `[]any` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `float64` | No |  |
 
 ### Operations
 
@@ -161,8 +161,8 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Ain2(nil).Create(map[string]any{
-    "answer": /* `$STRING` */,
-    "message": /* `$ARRAY` */,
+    "answer": /* string */,
+    "message": /* []any */,
 }, nil)
 ```
 

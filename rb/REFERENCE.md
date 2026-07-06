@@ -8,7 +8,7 @@ Complete API reference for the SodeomAiProxy Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'sodeom-ai-proxy_sdk'
+require_relative 'SodeomAiProxy_sdk'
 
 client = SodeomAiProxySDK.new(options)
 ```
@@ -97,7 +97,7 @@ ain = client.Ain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
+| `answer` | `String` | Yes |  |
 
 ### Operations
 
@@ -106,7 +106,7 @@ ain = client.Ain
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Ain.load({ "id" => "ain_id" })
+result = client.Ain.load()
 ```
 
 ### Common Methods
@@ -149,11 +149,11 @@ ain2 = client.Ain2
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | ``$STRING`` | Yes |  |
-| `max_token` | ``$INTEGER`` | No |  |
-| `message` | ``$ARRAY`` | Yes |  |
-| `model` | ``$STRING`` | No |  |
-| `temperature` | ``$NUMBER`` | No |  |
+| `answer` | `String` | Yes |  |
+| `max_token` | `Integer` | No |  |
+| `message` | `Array` | Yes |  |
+| `model` | `String` | No |  |
+| `temperature` | `Float` | No |  |
 
 ### Operations
 
@@ -163,8 +163,8 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Ain2.create({
-  "answer" => # `$STRING`,
-  "message" => # `$ARRAY`,
+  "answer" => "example", # String
+  "message" => [], # Array
 })
 ```
 

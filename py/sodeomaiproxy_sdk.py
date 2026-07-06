@@ -221,13 +221,13 @@ class SodeomAiProxySDK:
 
 
     def Ain(self, data=None) -> "AinEntity":
-        """Entity factory: client.Ain().list({}) / client.Ain().load({"id": ...})."""
+        """Entity factory: client.Ain().list() / client.Ain().load({"id": ...})."""
         from entity.ain_entity import AinEntity
         return AinEntity(self, data)
 
 
     def Ain2(self, data=None) -> "Ain2Entity":
-        """Entity factory: client.Ain2().list({}) / client.Ain2().load({"id": ...})."""
+        """Entity factory: client.Ain2().list() / client.Ain2().load({"id": ...})."""
         from entity.ain2_entity import Ain2Entity
         return Ain2Entity(self, data)
 

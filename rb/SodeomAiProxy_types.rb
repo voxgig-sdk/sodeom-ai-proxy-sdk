@@ -17,7 +17,7 @@ Ain = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Ain#load (any subset of Ain fields).
+# Request payload for Ain#load.
 #
 # @!attribute [rw] answer
 #   @return [String, nil]
@@ -51,16 +51,16 @@ Ain2 = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Ain2#create (any subset of Ain2 fields).
+# Request payload for Ain2#create.
 #
 # @!attribute [rw] answer
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] max_token
 #   @return [Integer, nil]
 #
 # @!attribute [rw] message
-#   @return [Array, nil]
+#   @return [Array]
 #
 # @!attribute [rw] model
 #   @return [String, nil]

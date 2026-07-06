@@ -13,8 +13,7 @@ type Ain struct {
 	Answer string `json:"answer"`
 }
 
-// AinLoadMatch mirrors the ain fields as an all-optional match
-// filter (Go analog of Partial<Ain>).
+// AinLoadMatch is the typed request payload for Ain.LoadTyped.
 type AinLoadMatch struct {
 	Answer *string `json:"answer,omitempty"`
 }
@@ -28,12 +27,11 @@ type Ain2 struct {
 	Temperature *float64 `json:"temperature,omitempty"`
 }
 
-// Ain2CreateData mirrors the ain2 fields as an all-optional match
-// filter (Go analog of Partial<Ain2>).
+// Ain2CreateData is the typed request payload for Ain2.CreateTyped.
 type Ain2CreateData struct {
-	Answer *string `json:"answer,omitempty"`
+	Answer string `json:"answer"`
 	MaxToken *int `json:"max_token,omitempty"`
-	Message *[]any `json:"message,omitempty"`
+	Message []any `json:"message"`
 	Model *string `json:"model,omitempty"`
 	Temperature *float64 `json:"temperature,omitempty"`
 }
