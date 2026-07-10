@@ -336,9 +336,13 @@ Create an instance: `ain2 := client.Ain2(nil)`
 
 ```go
 result, err := client.Ain2(nil).Create(map[string]any{
-    "answer": /* string */,
-    "message": /* []any */,
+    "answer": "example_answer",
+    "message": []any{},
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

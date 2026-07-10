@@ -314,7 +314,7 @@ Create an instance: `ain2 = client.Ain2()`
 
 ```python
 ain2 = client.Ain2().create({
-    "answer": "example",  # str
+    "answer": "example_answer",  # str
     "message": [],  # list
 })
 ```

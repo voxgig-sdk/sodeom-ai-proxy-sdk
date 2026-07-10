@@ -19,9 +19,9 @@ main: {
           url: "https://sodeom.com"
         }
       ]
+      summary: "This API serves as a proxy to an OpenAI-compatible API utilizing GitHub Models."
       title: "Sodeom AI Proxy"
       version: "1.0.0"
+      website: "https://sodeom.com/apis/ai"
     }
   }
-}
-

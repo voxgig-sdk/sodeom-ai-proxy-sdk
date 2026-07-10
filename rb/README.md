@@ -309,7 +309,7 @@ Create an instance: `ain2 = client.Ain2`
 
 ```ruby
 ain2 = client.Ain2.create({
-  "answer" => "example", # String
+  "answer" => "example_answer", # String
   "message" => [], # Array
 })
 ```

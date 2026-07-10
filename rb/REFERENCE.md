@@ -163,7 +163,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Ain2.create({
-  "answer" => "example", # String
+  "answer" => "example_answer", # String
   "message" => [], # Array
 })
 ```

@@ -192,8 +192,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Ain2().create({
-  answer: /* string */,
-  message: /* any[] */,
+  answer: 'example_answer',
+  message: [],
 })
 ```
 

@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -299,14 +296,17 @@
         "license": {
           "name": "Proprietary"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Production server",
             "url": "https://sodeom.com"
           }
         ],
+        "summary": "This API serves as a proxy to an OpenAI-compatible API utilizing GitHub Models.",
         "title": "Sodeom AI Proxy",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://sodeom.com/apis/ai"
       },
       "option": {},
       "target": {
@@ -359,6 +359,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -409,6 +412,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

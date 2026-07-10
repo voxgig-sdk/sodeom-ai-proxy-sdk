@@ -156,7 +156,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Ain2().create({
-    "answer": "example",  # str
+    "answer": "example_answer",  # str
     "message": [],  # list
 })
 ```

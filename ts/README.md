@@ -358,8 +358,8 @@ Create an instance: `const ain2 = client.Ain2()`
 
 ```ts
 const ain2 = await client.Ain2().create({
-  answer: /* string */,
-  message: /* any[] */,
+  answer: 'example_answer',
+  message: [],
 })
 ```
 

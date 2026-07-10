@@ -95,6 +95,7 @@ same parameters as `Direct()`.
 
 ```go
 ain := client.Ain(nil)
+fmt.Println(ain.GetName()) // "ain"
 ```
 
 ### Fields
@@ -111,6 +112,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Ain(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -141,6 +146,7 @@ Return the entity name.
 
 ```go
 ain2 := client.Ain2(nil)
+fmt.Println(ain2.GetName()) // "ain2"
 ```
 
 ### Fields
@@ -161,9 +167,13 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Ain2(nil).Create(map[string]any{
-    "answer": /* string */,
-    "message": /* []any */,
+    "answer": "example_answer",
+    "message": []any{},
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

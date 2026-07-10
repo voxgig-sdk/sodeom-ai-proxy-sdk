@@ -299,8 +299,8 @@ Create an instance: `local ain2 = client:Ain2(nil)`
 
 ```lua
 local ain2, err = client:Ain2():create({
-  answer = nil, -- string
-  message = nil, -- table
+  answer = "example_answer", -- string
+  message = {}, -- table
 })
 ```
 
