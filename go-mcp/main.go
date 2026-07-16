@@ -37,7 +37,20 @@ func main() {
 	addr := flag.String("addr", ":8080", "listen address for http transport")
 	flag.Parse()
 
-	client := sdk.NewSodeomAiProxySDK(nil)
+	// Configure from the environment: SODEOM_AI_PROXY_APIKEY carries the API key and
+	// SODEOM_AI_PROXY_BASE optionally overrides the API base URL (e.g. production).
+	// Both injectable by a secrets vault. Unset -> nil config defaults.
+	var opts map[string]any
+	if apikey := os.Getenv("SODEOM_AI_PROXY_APIKEY"); apikey != "" {
+		opts = map[string]any{"apikey": apikey}
+	}
+	if base := os.Getenv("SODEOM_AI_PROXY_BASE"); base != "" {
+		if opts == nil {
+			opts = map[string]any{}
+		}
+		opts["base"] = base
+	}
+	client := sdk.NewSodeomAiProxySDK(opts)
 	server := mcp.NewServer(
 		&mcp.Implementation{
 			Name:    "sodeom-ai-proxy",
