@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- SodeomAiProxy SDK exists test
 
 local sdk = require("sodeom-ai-proxy_sdk")
 
