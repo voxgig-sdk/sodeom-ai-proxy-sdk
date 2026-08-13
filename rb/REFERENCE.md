@@ -45,10 +45,6 @@ client = SodeomAiProxySDK.test
 
 Create a new `Ain` entity instance. Pass `nil` for no initial data.
 
-#### `Ain2(data = nil)`
-
-Create a new `Ain2` entity instance. Pass `nil` for no initial data.
-
 #### `options_map -> Hash`
 
 Return a deep copy of the current SDK options.
@@ -98,8 +94,23 @@ ain = client.Ain
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `answer` | `String` | Yes |  |
+| `max_tokens` | `Integer` | No |  |
+| `messages` | `Array` | Yes |  |
+| `model` | `String` | No |  |
+| `temperature` | `Float` | No |  |
 
 ### Operations
+
+#### `create(reqdata, ctrl = nil) -> result`
+
+Create a new entity with the given data. Raises on error.
+
+```ruby
+result = client.Ain.create({
+  "answer" => "example_answer", # String
+  "messages" => [], # Array
+})
+```
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
@@ -130,65 +141,6 @@ Set the entity match criteria.
 #### `make -> Entity`
 
 Create a new `AinEntity` instance with the same client and
-options.
-
-#### `get_name -> String`
-
-Return the entity name.
-
-
----
-
-## Ain2Entity
-
-```ruby
-ain2 = client.Ain2
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `answer` | `String` | Yes |  |
-| `max_token` | `Integer` | No |  |
-| `message` | `Array` | Yes |  |
-| `model` | `String` | No |  |
-| `temperature` | `Float` | No |  |
-
-### Operations
-
-#### `create(reqdata, ctrl = nil) -> result`
-
-Create a new entity with the given data. Raises on error.
-
-```ruby
-result = client.Ain2.create({
-  "answer" => "example_answer", # String
-  "message" => [], # Array
-})
-```
-
-### Common Methods
-
-#### `data_get -> Hash`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get -> Hash`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make -> Entity`
-
-Create a new `Ain2Entity` instance with the same client and
 options.
 
 #### `get_name -> String`

@@ -16,7 +16,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as a small set of **semantic entities** — Ain and Ain2 — that you
+This SDK exposes the API as a small set of **semantic entities** — Ain — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`load`, `create`):
@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = SodeomAiProxySDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = SodeomAiProxySDK.test({
+  entity: {
+    ain: {
+      test01: { id: 'test01', answer: 'example_answer', messages: [] },
+    },
+  },
+})
 const ain = await client.Ain().load()
-// ain is a bare Ain populated with mock data
+// ain is the Ain entity, populated with mock data
+// — call ain.data() for the record itself
 console.log(ain)
 ```
 
@@ -149,12 +158,11 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 2 entities:
+The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Ain** | The Ain entity (load). | `/ai` |
-| **Ain2** | The Ain2 entity (create). | `/ai` |
+| **Ain** | The Ain entity (create, load). | `/ai` |
 
 The operations available across these entities are **load**, **create** — see each entity's
 own list above for exactly which it supports.
@@ -183,7 +191,7 @@ require_once 'sodeomaiproxy_sdk.php';
 $client = new SodeomAiProxySDK();
 
 
-// Load a specific ain (returns the bare record; throws on error)
+// Load a specific ain (returns the ENTITY; call data_get() for the record; throws on error)
 $ain = $client->Ain()->load();
 print_r($ain);
 ```
@@ -211,7 +219,7 @@ require_relative "SodeomAiProxy_sdk"
 client = SodeomAiProxySDK.new
 
 
-# Load a specific ain (returns the bare record; raises on error)
+# Load a specific ain (returns the ENTITY; call data_get for the record)
 ain = client.Ain.load()
 puts ain
 ```
@@ -345,6 +353,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://sodeom.com](https://sodeom.com)
 

@@ -14,7 +14,7 @@ import (
 // testSeed is a test-mode fixture seeded for every entity. It is spliced as
 // literal Go source into fragment wrappers and into the test-mode variant of
 // complete programs, so the offline mock transport has data to return.
-const testSeed = `map[string]any{"entity": map[string]any{"ain": map[string]any{"example_id": map[string]any{"id": "example_id"}}, "ain2": map[string]any{"example_id": map[string]any{"id": "example_id"}}}}`
+const testSeed = `map[string]any{"entity": map[string]any{"ain": map[string]any{"example_id": map[string]any{"id": "example_id"}}}}`
 
 // doc names one of the three docs that carry go examples, with its path
 // relative to this test file's directory (which is <repo>/go/test): the root

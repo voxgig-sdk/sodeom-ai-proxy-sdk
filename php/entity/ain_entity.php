@@ -257,6 +257,36 @@ class AinEntity
     
 
     
+    /**
+     * Create a new Ain.
+     *
+     * @param AinCreateData|array|null $reqdata Body data as an assoc-array;
+     *   a typed AinCreateData names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return Ain|array The created Ain as an assoc-array at the
+     *   SDK boundary; throws SodeomAiProxyError on failure (item-5 convention).
+     */
+    public function create(?array $reqdata = null, $ctrl = null): mixed
+    {
+        $utility = $this->_utility;
+        $ctx = ($utility->make_context)([
+            "opname" => "create",
+            "ctrl" => $ctrl,
+            "match" => $this->_match,
+            "data" => $this->_data,
+            "reqdata" => $reqdata,
+        ], $this->_entctx);
+
+        return $this->_run_op($ctx, function () use ($ctx) {
+            if ($ctx->result) {
+                if ($ctx->result->resdata) {
+                    $this->_data = SodeomAiProxyHelpers::to_map(Struct::clone($ctx->result->resdata)) ?? [];
+                }
+            }
+        });
+    }
+
+
 
     
 
@@ -304,6 +334,25 @@ class AinEntity
         ($utility->feature_hook)($ctx, "PreDone");
         $post_done();
 
-        return ($utility->done)($ctx);
+        $out = ($utility->done)($ctx);
+
+        // An operation resolves to the ENTITY, not the raw data. Entities are
+        // stateful: post_done has just absorbed resdata/resmatch into this
+        // instance, and the caller reaches the record through data(). Two
+        // structural exceptions: `list` resolves to the ARRAY of entity
+        // instances make_result built, and a failed op with throwing disabled
+        // hands back the error payload unchanged. `remove` additionally marks
+        // the entity deleted; it KEEPS its data, so a caller can still read
+        // what was removed. See AGENTS.md "Entity operations return ENTITIES".
+        $opname = $ctx->op === null ? null : $ctx->op->name;
+
+        if ($ctx->result !== null && $ctx->result->ok && $opname !== 'list') {
+            if ($opname === 'remove') {
+                $this->markDeleted();
+            }
+            return $this;
+        }
+
+        return $out;
     }
 }

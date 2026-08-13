@@ -43,8 +43,8 @@ class SodeomAiProxyTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('SODEOMAIPROXY_TEST_LIVE');
-        $override = self::getenv('SODEOMAIPROXY_TEST_OVERRIDE');
+        $live = self::getenv('SODEOM_AI_PROXY_TEST_LIVE');
+        $override = self::getenv('SODEOM_AI_PROXY_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class SodeomAiProxyTestRunner
             }
         }
 
-        $explain = self::getenv('SODEOMAIPROXY_TEST_EXPLAIN');
+        $explain = self::getenv('SODEOM_AI_PROXY_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['SODEOMAIPROXY_TEST_EXPLAIN'] = $explain;
+            $m['SODEOM_AI_PROXY_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

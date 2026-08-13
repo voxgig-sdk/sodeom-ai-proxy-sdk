@@ -2,15 +2,27 @@
   "existing": {
     "ain": {
       "AIN00": {
-        "answer": "sa",
+        "answer": "s32",
+        "max_tokens": "s33",
+        "messages": [],
+        "model": "s35",
+        "temperature": 54,
         "id": "AIN00"
       },
       "AIN01": {
-        "answer": "s14",
+        "answer": "s64",
+        "max_tokens": "s65",
+        "messages": [],
+        "model": "s67",
+        "temperature": 104,
         "id": "AIN01"
       },
       "AIN02": {
-        "answer": "s1e",
+        "answer": "s96",
+        "max_tokens": "s97",
+        "messages": [],
+        "model": "s99",
+        "temperature": 154,
         "id": "AIN02"
       }
     }
@@ -18,7 +30,11 @@
   "new": {
     "ain": {
       "ain_ref01": {
-        "answer": "s28"
+        "answer": "sc8",
+        "max_tokens": "sc9",
+        "messages": [],
+        "model": "scb",
+        "temperature": 204
       }
     }
   }

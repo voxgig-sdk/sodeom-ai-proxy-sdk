@@ -35,12 +35,20 @@ $client = new SodeomAiProxySDK();
 
 ```php
 try {
-    // load() returns the bare Ain record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Ain record (throws on error).
     $ain = $client->Ain()->load();
     print_r($ain);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
+```
+
+### 4. Create, update, and remove
+
+```php
+// create() returns the ENTITY — call data_get() for the created Ain record.
+$created = $client->Ain()->create(["answer" => "example_answer", "messages" => []]);
+
 ```
 
 
@@ -123,7 +131,8 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = SodeomAiProxySDK::test();
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $ain = $client->Ain()->load();
 print_r($ain);
 ```
@@ -205,7 +214,6 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `Ain` | `($data): AinEntity` | Create an Ain entity instance. |
-| `Ain2` | `($data): Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -224,7 +232,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -247,22 +255,12 @@ On error, `ok` is `false` and `$err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `answer` |  |
-
-Operations: Load.
-
-API path: `/ai`
-
-#### Ain2
-
-| Field | Description |
-| --- | --- |
-| `answer` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `temperature` |  |
 
-Operations: Create.
+Operations: Create, Load.
 
 API path: `/ai`
 
@@ -279,6 +277,7 @@ Create an instance: `$ain = $client->Ain();`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -286,41 +285,24 @@ Create an instance: `$ain = $client->Ain();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `answer` | `string` |  |
+| `max_tokens` | `int` |  |
+| `messages` | `array` |  |
+| `model` | `string` |  |
+| `temperature` | `float` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Ain record (throws on error).
+// load() returns the ENTITY — call data_get() for the Ain record (throws on error).
 $ain = $client->Ain()->load();
 ```
-
-
-### Ain2
-
-Create an instance: `$ain2 = $client->Ain2();`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `answer` | `string` |  |
-| `max_token` | `int` |  |
-| `message` | `array` |  |
-| `model` | `string` |  |
-| `temperature` | `float` |  |
 
 #### Example: Create
 
 ```php
-$ain2 = $client->Ain2()->create([
+$ain = $client->Ain()->create([
     "answer" => null, // string
-    "message" => null, // array
+    "messages" => null, // array
 ]);
 ```
 

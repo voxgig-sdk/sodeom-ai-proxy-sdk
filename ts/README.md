@@ -46,6 +46,17 @@ try {
 }
 ```
 
+### 4. Create, update, and remove
+
+```ts
+// Create — returns the created Ain ENTITY (.data() for the record)
+const created = await client.Ain().create({
+  answer: 'example_answer',
+  messages: [],
+})
+
+```
+
 
 ## Error handling
 
@@ -121,7 +132,8 @@ Create a mock client for unit testing — no server required:
 const client = SodeomAiProxySDK.test()
 
 const ain = await client.Ain().load()
-// ain is a bare entity populated with mock response data
+// ain is the entity, populated with mock response data
+// — call ain.data() for the record itself
 console.log(ain)
 ```
 
@@ -216,7 +228,6 @@ new SodeomAiProxySDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Ain(data?)` | `AinEntity` | Create an Ain entity instance. |
-| `Ain2(data?)` | `Ain2Entity` | Create an Ain2 entity instance. |
 | `tester(testopts?, sdkopts?)` | `SodeomAiProxySDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -287,22 +298,12 @@ The `prepare()` method returns:
 | Field | Description |
 | --- | --- |
 | `answer` |  |
-
-Operations: load.
-
-API path: `/ai`
-
-#### Ain2
-
-| Field | Description |
-| --- | --- |
-| `answer` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `temperature` |  |
 
-Operations: create.
+Operations: create, load.
 
 API path: `/ai`
 
@@ -319,6 +320,7 @@ Create an instance: `const ain = client.Ain()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -326,6 +328,10 @@ Create an instance: `const ain = client.Ain()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `answer` | `string` |  |
+| `max_tokens` | `number` |  |
+| `messages` | `any[]` |  |
+| `model` | `string` |  |
+| `temperature` | `number` |  |
 
 #### Example: Load
 
@@ -333,33 +339,12 @@ Create an instance: `const ain = client.Ain()`
 const ain = await client.Ain().load()
 ```
 
-
-### Ain2
-
-Create an instance: `const ain2 = client.Ain2()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `answer` | `string` |  |
-| `max_token` | `number` |  |
-| `message` | `any[]` |  |
-| `model` | `string` |  |
-| `temperature` | `number` |  |
-
 #### Example: Create
 
 ```ts
-const ain2 = await client.Ain2().create({
+const ain = await client.Ain().create({
   answer: 'example_answer',
-  message: [],
+  messages: [],
 })
 ```
 

@@ -16,11 +16,11 @@
 import pytest
 
 from sodeomaiproxy_sdk import SodeomAiProxySDK
-from core.error import SodeomAiProxyError
-from core.result import SodeomAiProxyResult
-from core.response import SodeomAiProxyResponse
-from core.spec import SodeomAiProxySpec
-from feature.base_feature import SodeomAiProxyBaseFeature
+from sodeomaiproxy_sdk.core.error import SodeomAiProxyError
+from sodeomaiproxy_sdk.core.result import SodeomAiProxyResult
+from sodeomaiproxy_sdk.core.response import SodeomAiProxyResponse
+from sodeomaiproxy_sdk.core.spec import SodeomAiProxySpec
+from sodeomaiproxy_sdk.feature.base_feature import SodeomAiProxyBaseFeature
 
 
 def _client():

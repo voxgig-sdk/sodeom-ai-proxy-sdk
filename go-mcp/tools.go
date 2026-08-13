@@ -16,7 +16,7 @@ import (
 // reqdata map passed through to the SDK. For load, `query` should be
 // `{"id": <value>}`. For list, omit `query` or pass an empty map.
 type Args struct {
-	Entity string         `json:"entity" jsonschema:"ain | ain2"`
+	Entity string         `json:"entity" jsonschema:"ain"`
 	Query  map[string]any `json:"query,omitempty" jsonschema:"optional match map e.g. {\"id\":1} for load, omit for list"`
 }
 
@@ -79,8 +79,6 @@ func entityFor(client *sdk.SodeomAiProxySDK, name string) (sdk.SodeomAiProxyEnti
 	switch strings.ToLower(name) {
 	case "ain":
 		return client.Ain(nil), nil
-	case "ain2":
-		return client.Ain2(nil), nil
 
 	}
 	return nil, fmt.Errorf("unknown entity %q", name)

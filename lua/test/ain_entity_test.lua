@@ -19,7 +19,7 @@ describe("AinEntity", function()
     local setup = ain_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"load"}) do
+    for _, _op in ipairs({"create", "load"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "ain." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
@@ -29,21 +29,22 @@ describe("AinEntity", function()
     -- The basic flow consumes synthetic IDs from the fixture. In live mode
     -- without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup.synthetic_only then
-      pending("live entity test uses synthetic IDs from fixture — set SODEOMAIPROXY_TEST_AIN_ENTID JSON to run live")
+      pending("live entity test uses synthetic IDs from fixture — set SODEOM_AI_PROXY_TEST_AIN_ENTID JSON to run live")
       return
     end
     local client = setup.client
 
-    -- Bootstrap entity data from existing test data.
-    local ain_ref01_data_raw = vs.items(helpers.to_map(
-      vs.getpath(setup.data, "existing.ain")))
-    local ain_ref01_data = nil
-    if #ain_ref01_data_raw > 0 then
-      ain_ref01_data = helpers.to_map(ain_ref01_data_raw[1][2])
-    end
+    -- CREATE
+    local ain_ref01_ent = client:Ain(nil)
+    local ain_ref01_data = helpers.to_map(vs.getprop(
+      vs.getpath(setup.data, "new.ain"), "ain_ref01"))
+
+    local ain_ref01_data_result, err = ain_ref01_ent:create(ain_ref01_data, nil)
+    assert.is_nil(err)
+    ain_ref01_data = helpers.to_map(type(ain_ref01_data_result) == 'table' and ain_ref01_data_result.data_get and ain_ref01_data_result:data_get() or ain_ref01_data_result)
+    assert.is_not_nil(ain_ref01_data)
 
     -- LOAD
-    local ain_ref01_ent = client:Ain(nil)
     local ain_ref01_match_dt0 = {}
     local ain_ref01_data_dt0_loaded, err = ain_ref01_ent:load(ain_ref01_match_dt0, nil)
     assert.is_nil(err)
@@ -84,22 +85,22 @@ function ain_basic_setup(extra)
   -- Detect ENTID env override before envOverride consumes it. When live
   -- mode is on without a real override, the basic test runs against synthetic
   -- IDs from the fixture and 4xx's. Surface this so the test can skip.
-  local entid_env_raw = os.getenv("SODEOMAIPROXY_TEST_AIN_ENTID")
+  local entid_env_raw = os.getenv("SODEOM_AI_PROXY_TEST_AIN_ENTID")
   local idmap_overridden = entid_env_raw ~= nil and entid_env_raw:match("^%s*{") ~= nil
 
   local env = runner.env_override({
-    ["SODEOMAIPROXY_TEST_AIN_ENTID"] = idmap,
-    ["SODEOMAIPROXY_TEST_LIVE"] = "FALSE",
-    ["SODEOMAIPROXY_TEST_EXPLAIN"] = "FALSE",
+    ["SODEOM_AI_PROXY_TEST_AIN_ENTID"] = idmap,
+    ["SODEOM_AI_PROXY_TEST_LIVE"] = "FALSE",
+    ["SODEOM_AI_PROXY_TEST_EXPLAIN"] = "FALSE",
   })
 
   local idmap_resolved = helpers.to_map(
-    env["SODEOMAIPROXY_TEST_AIN_ENTID"])
+    env["SODEOM_AI_PROXY_TEST_AIN_ENTID"])
   if idmap_resolved == nil then
     idmap_resolved = helpers.to_map(idmap)
   end
 
-  if env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE" then
+  if env["SODEOM_AI_PROXY_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
       },
@@ -108,13 +109,13 @@ function ain_basic_setup(extra)
     client = sdk.new(helpers.to_map(merged_opts))
   end
 
-  local live = env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE"
+  local live = env["SODEOM_AI_PROXY_TEST_LIVE"] == "TRUE"
   return {
     client = client,
     data = entity_data,
     idmap = idmap_resolved,
     env = env,
-    explain = env["SODEOMAIPROXY_TEST_EXPLAIN"] == "TRUE",
+    explain = env["SODEOM_AI_PROXY_TEST_EXPLAIN"] == "TRUE",
     live = live,
     synthetic_only = live and not idmap_overridden,
     now = os.time() * 1000,

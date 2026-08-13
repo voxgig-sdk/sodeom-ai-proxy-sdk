@@ -60,18 +60,6 @@ Create a new `Ain` entity instance.
 
 **Returns:** `AinEntity` instance.
 
-#### `Ain2(data?: object)`
-
-Create a new `Ain2` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `Ain2Entity` instance.
-
 #### `options()`
 
 Return a deep copy of the current SDK options.
@@ -129,8 +117,23 @@ const ain = client.Ain()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `answer` | `string` | Yes |  |
+| `max_tokens` | `number` | No |  |
+| `messages` | `any[]` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `number` | No |  |
 
 ### Operations
+
+#### `create(data: object, ctrl?: object)`
+
+Create a new entity with the given data.
+
+```ts
+const result = await client.Ain().create({
+  answer: 'example_answer',
+  messages: [],
+})
+```
 
 #### `load(match: object, ctrl?: object)`
 
@@ -155,63 +158,6 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `AinEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `SodeomAiProxySDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## Ain2Entity
-
-```ts
-const ain2 = client.Ain2()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `answer` | `string` | Yes |  |
-| `max_token` | `number` | No |  |
-| `message` | `any[]` | Yes |  |
-| `model` | `string` | No |  |
-| `temperature` | `number` | No |  |
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data.
-
-```ts
-const result = await client.Ain2().create({
-  answer: 'example_answer',
-  message: [],
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `Ain2Entity` instance with the same client and
 options.
 
 #### `client()`

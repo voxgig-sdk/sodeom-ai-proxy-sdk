@@ -7,24 +7,24 @@
 
 export interface Ain {
   answer: string
-}
-
-export interface AinLoadMatch {
-  answer?: string
-}
-
-export interface Ain2 {
-  answer: string
-  max_token?: number
-  message: any[]
+  max_tokens?: number
+  messages: any[]
   model?: string
   temperature?: number
 }
 
-export interface Ain2CreateData {
+export interface AinLoadMatch {
+  answer?: string
+  max_tokens?: number
+  messages?: any[]
+  model?: string
+  temperature?: number
+}
+
+export interface AinCreateData {
   answer: string
-  max_token?: number
-  message: any[]
+  max_tokens?: number
+  messages: any[]
   model?: string
   temperature?: number
 }

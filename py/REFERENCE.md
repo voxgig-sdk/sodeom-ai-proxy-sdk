@@ -45,10 +45,6 @@ client = SodeomAiProxySDK.test()
 
 Create a new `AinEntity` instance. Pass `None` for no initial data.
 
-#### `Ain2(data=None)`
-
-Create a new `Ain2Entity` instance. Pass `None` for no initial data.
-
 #### `options_map() -> dict`
 
 Return a deep copy of the current SDK options.
@@ -92,8 +88,23 @@ ain = client.Ain()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `answer` | `str` | Yes |  |
+| `max_tokens` | `int` | No |  |
+| `messages` | `list` | Yes |  |
+| `model` | `str` | No |  |
+| `temperature` | `float` | No |  |
 
 ### Operations
+
+#### `create(reqdata, ctrl=None) -> dict`
+
+Create a new entity with the given data. Returns the created entity data and raises on error.
+
+```python
+result = client.Ain().create({
+    "answer": "example_answer",  # str
+    "messages": [],  # list
+})
+```
 
 #### `load(reqmatch, ctrl=None) -> dict`
 
@@ -124,64 +135,6 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `AinEntity` instance with the same options.
-
-#### `get_name() -> str`
-
-Return the entity name.
-
-
----
-
-## Ain2Entity
-
-```python
-ain2 = client.Ain2()
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `answer` | `str` | Yes |  |
-| `max_token` | `int` | No |  |
-| `message` | `list` | Yes |  |
-| `model` | `str` | No |  |
-| `temperature` | `float` | No |  |
-
-### Operations
-
-#### `create(reqdata, ctrl=None) -> dict`
-
-Create a new entity with the given data. Returns the created entity data and raises on error.
-
-```python
-result = client.Ain2().create({
-    "answer": "example_answer",  # str
-    "message": [],  # list
-})
-```
-
-### Common Methods
-
-#### `data_get() -> dict`
-
-Get the entity data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> dict`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `Ain2Entity` instance with the same options.
 
 #### `get_name() -> str`
 

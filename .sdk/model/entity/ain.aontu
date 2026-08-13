@@ -10,10 +10,46 @@ main: kit: entity: ain: {
       req: true
       type: "`$STRING`"
     }
+    {
+      name: "max_tokens"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "messages"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "model"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "temperature"
+      req: false
+      type: "`$NUMBER`"
+    }
   ]
 
   name: "ain"
   op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/ai"
+          parts: [
+            "ai"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
     load: {
       name: "load"
       points: [

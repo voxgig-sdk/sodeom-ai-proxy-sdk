@@ -23,8 +23,8 @@ module SodeomAiProxyTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("SODEOMAIPROXY_TEST_LIVE")
-    override = getenv("SODEOMAIPROXY_TEST_OVERRIDE")
+    live = getenv("SODEOM_AI_PROXY_TEST_LIVE")
+    override = getenv("SODEOM_AI_PROXY_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module SodeomAiProxyTestRunner
       end
     end
 
-    explain = getenv("SODEOMAIPROXY_TEST_EXPLAIN")
-    m["SODEOMAIPROXY_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("SODEOM_AI_PROXY_TEST_EXPLAIN")
+    m["SODEOM_AI_PROXY_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

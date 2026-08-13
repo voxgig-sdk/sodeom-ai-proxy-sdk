@@ -34,12 +34,20 @@ client = SodeomAiProxySDK.new
 
 ```ruby
 begin
-  # load returns the bare Ain record (raises on error).
+  # load returns the ENTITY — call data_get for the Ain record (raises on error).
   ain = client.Ain.load()
   puts ain
 rescue => err
   warn "load failed: #{err}"
 end
+```
+
+### 4. Create, update, and remove
+
+```ruby
+# create returns the ENTITY — call data_get for the created Ain record.
+created = client.Ain.create({ "answer" => "example_answer", "messages" => [] })
+
 ```
 
 
@@ -117,7 +125,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = SodeomAiProxySDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 ain = client.Ain.load()
 puts ain
 ```
@@ -196,7 +205,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Ain` | `(data) -> AinEntity` | Create an Ain entity instance. |
-| `Ain2` | `(data) -> Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -237,22 +245,12 @@ returns a result `Hash` with these keys:
 | Field | Description |
 | --- | --- |
 | `answer` |  |
-
-Operations: Load.
-
-API path: `/ai`
-
-#### Ain2
-
-| Field | Description |
-| --- | --- |
-| `answer` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `temperature` |  |
 
-Operations: Create.
+Operations: Create, Load.
 
 API path: `/ai`
 
@@ -269,6 +267,7 @@ Create an instance: `ain = client.Ain`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -276,41 +275,24 @@ Create an instance: `ain = client.Ain`
 | Field | Type | Description |
 | --- | --- | --- |
 | `answer` | `String` |  |
+| `max_tokens` | `Integer` |  |
+| `messages` | `Array` |  |
+| `model` | `String` |  |
+| `temperature` | `Float` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Ain record (raises on error).
+# load returns the ENTITY — call data_get for the Ain record (raises on error).
 ain = client.Ain.load()
 ```
-
-
-### Ain2
-
-Create an instance: `ain2 = client.Ain2`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `answer` | `String` |  |
-| `max_token` | `Integer` |  |
-| `message` | `Array` |  |
-| `model` | `String` |  |
-| `temperature` | `Float` |  |
 
 #### Example: Create
 
 ```ruby
-ain2 = client.Ain2.create({
+ain = client.Ain.create({
   "answer" => "example_answer", # String
-  "message" => [], # Array
+  "messages" => [], # Array
 })
 ```
 

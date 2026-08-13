@@ -62,8 +62,8 @@ function makeCtrl(explain: boolean) {
 // Overrides configuration values with environment variables if available
 function envOverride(m: Record<string, any>) {
   if (
-    'TRUE' === process.env.SODEOMAIPROXY_TEST_LIVE ||
-    'TRUE' === process.env.SODEOMAIPROXY_TEST_OVERRIDE
+    'TRUE' === process.env.SODEOM_AI_PROXY_TEST_LIVE ||
+    'TRUE' === process.env.SODEOM_AI_PROXY_TEST_OVERRIDE
   ) {
     Object.entries(m).map(n => {
       let envval = process.env[n[0]]
@@ -74,7 +74,7 @@ function envOverride(m: Record<string, any>) {
     })
   }
 
-  m.SODEOMAIPROXY_TEST_EXPLAIN = process.env.SODEOMAIPROXY_TEST_EXPLAIN || m.SODEOMAIPROXY_TEST_EXPLAIN
+  m.SODEOM_AI_PROXY_TEST_EXPLAIN = process.env.SODEOM_AI_PROXY_TEST_EXPLAIN || m.SODEOM_AI_PROXY_TEST_EXPLAIN
 
   return m
 }

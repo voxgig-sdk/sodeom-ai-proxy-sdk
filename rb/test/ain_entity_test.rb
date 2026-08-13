@@ -16,7 +16,7 @@ class AinEntityTest < Minitest::Test
     setup = ain_basic_setup(nil)
     # Per-op sdk-test-control.json skip.
     _live = setup[:live] || false
-    ["load"].each do |_op|
+    ["create", "load"].each do |_op|
       _should_skip, _reason = Runner.is_control_skipped("entityOp", "ain." + _op, _live ? "live" : "unit")
       if _should_skip
         skip(_reason || "skipped via sdk-test-control.json")
@@ -26,21 +26,21 @@ class AinEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set SODEOMAIPROXY_TEST_AIN_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set SODEOM_AI_PROXY_TEST_AIN_ENTID JSON to run live"
       return
     end
     client = setup[:client]
 
-    # Bootstrap entity data from existing test data.
-    ain_ref01_data_raw = Vs.items(Helpers.to_map(
-      Vs.getpath(setup[:data], "existing.ain")))
-    ain_ref01_data = nil
-    if ain_ref01_data_raw.length > 0
-      ain_ref01_data = Helpers.to_map(ain_ref01_data_raw[0][1])
-    end
+    # CREATE
+    ain_ref01_ent = client.Ain(nil)
+    ain_ref01_data = Helpers.to_map(Vs.getprop(
+      Vs.getpath(setup[:data], "new.ain"), "ain_ref01"))
+
+    ain_ref01_data_result = ain_ref01_ent.create(ain_ref01_data, nil)
+    ain_ref01_data = Helpers.to_map(ain_ref01_data_result.respond_to?(:data_get) ? ain_ref01_data_result.data_get : ain_ref01_data_result)
+    assert !ain_ref01_data.nil?
 
     # LOAD
-    ain_ref01_ent = client.Ain(nil)
     ain_ref01_match_dt0 = {}
     ain_ref01_data_dt0_loaded = ain_ref01_ent.load(ain_ref01_match_dt0, nil)
     assert !ain_ref01_data_dt0_loaded.nil?
@@ -74,22 +74,22 @@ def ain_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["SODEOMAIPROXY_TEST_AIN_ENTID"]
+  entid_env_raw = ENV["SODEOM_AI_PROXY_TEST_AIN_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "SODEOMAIPROXY_TEST_AIN_ENTID" => idmap,
-    "SODEOMAIPROXY_TEST_LIVE" => "FALSE",
-    "SODEOMAIPROXY_TEST_EXPLAIN" => "FALSE",
+    "SODEOM_AI_PROXY_TEST_AIN_ENTID" => idmap,
+    "SODEOM_AI_PROXY_TEST_LIVE" => "FALSE",
+    "SODEOM_AI_PROXY_TEST_EXPLAIN" => "FALSE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["SODEOMAIPROXY_TEST_AIN_ENTID"])
+    env["SODEOM_AI_PROXY_TEST_AIN_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE"
+  if env["SODEOM_AI_PROXY_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
       },
@@ -98,13 +98,13 @@ def ain_basic_setup(extra)
     client = SodeomAiProxySDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE"
+  live = env["SODEOM_AI_PROXY_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["SODEOMAIPROXY_TEST_EXPLAIN"] == "TRUE",
+    explain: env["SODEOM_AI_PROXY_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

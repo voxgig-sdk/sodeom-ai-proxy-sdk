@@ -41,6 +41,15 @@ if err then error(err) end
 print(ain)
 ```
 
+### 4. Create, update, and remove
+
+```lua
+-- Create
+local created, err = client:Ain():create({ answer = "example_answer", messages = {} })
+if err then error(err) end
+
+```
+
 
 ## Error handling
 
@@ -186,7 +195,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Ain` | `(data) -> AinEntity` | Create an Ain entity instance. |
-| `Ain2` | `(data) -> Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -228,22 +236,12 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | Field | Description |
 | --- | --- |
 | `answer` |  |
-
-Operations: Load.
-
-API path: `/ai`
-
-#### Ain2
-
-| Field | Description |
-| --- | --- |
-| `answer` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `temperature` |  |
 
-Operations: Create.
+Operations: Create, Load.
 
 API path: `/ai`
 
@@ -260,6 +258,7 @@ Create an instance: `local ain = client:Ain(nil)`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -267,6 +266,10 @@ Create an instance: `local ain = client:Ain(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `answer` | `string` |  |
+| `max_tokens` | `number` |  |
+| `messages` | `table` |  |
+| `model` | `string` |  |
+| `temperature` | `number` |  |
 
 #### Example: Load
 
@@ -274,33 +277,12 @@ Create an instance: `local ain = client:Ain(nil)`
 local ain, err = client:Ain():load()
 ```
 
-
-### Ain2
-
-Create an instance: `local ain2 = client:Ain2(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `answer` | `string` |  |
-| `max_token` | `number` |  |
-| `message` | `table` |  |
-| `model` | `string` |  |
-| `temperature` | `number` |  |
-
 #### Example: Create
 
 ```lua
-local ain2, err = client:Ain2():create({
+local ain, err = client:Ain():create({
   answer = "example_answer", -- string
-  message = {}, -- table
+  messages = {}, -- table
 })
 ```
 

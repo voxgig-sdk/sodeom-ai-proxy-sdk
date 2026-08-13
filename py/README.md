@@ -38,7 +38,7 @@ client = SodeomAiProxySDK()
 
 ### 3. Load an ain
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -46,6 +46,14 @@ try:
     print(ain)
 except Exception as err:
     print(f"load failed: {err}")
+```
+
+### 4. Create, update, and remove
+
+```python
+# Create — returns the ENTITY (call data_get() for the record)
+created = client.Ain().create({"answer": "example_answer", "messages": []})
+
 ```
 
 
@@ -122,7 +130,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = SodeomAiProxySDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 ain = client.Ain().load()
 # ain contains the mock response record
 ```
@@ -201,7 +210,6 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Ain` | `(data) -> AinEntity` | Create an Ain entity instance. |
-| `Ain2` | `(data) -> Ain2Entity` | Create an Ain2 entity instance. |
 
 ### Entity interface
 
@@ -220,7 +228,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -243,22 +251,12 @@ On error, `ok` is `False` and `err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `answer` |  |
-
-Operations: Load.
-
-API path: `/ai`
-
-#### Ain2
-
-| Field | Description |
-| --- | --- |
-| `answer` |  |
-| `max_token` |  |
-| `message` |  |
+| `max_tokens` |  |
+| `messages` |  |
 | `model` |  |
 | `temperature` |  |
 
-Operations: Create.
+Operations: Create, Load.
 
 API path: `/ai`
 
@@ -275,6 +273,7 @@ Create an instance: `ain = client.Ain()`
 
 | Method | Description |
 | --- | --- |
+| `create(data)` | Create a new entity with the given data. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
@@ -282,6 +281,10 @@ Create an instance: `ain = client.Ain()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `answer` | `str` |  |
+| `max_tokens` | `int` |  |
+| `messages` | `list` |  |
+| `model` | `str` |  |
+| `temperature` | `float` |  |
 
 #### Example: Load
 
@@ -289,33 +292,12 @@ Create an instance: `ain = client.Ain()`
 ain = client.Ain().load()
 ```
 
-
-### Ain2
-
-Create an instance: `ain2 = client.Ain2()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `answer` | `str` |  |
-| `max_token` | `int` |  |
-| `message` | `list` |  |
-| `model` | `str` |  |
-| `temperature` | `float` |  |
-
 #### Example: Create
 
 ```python
-ain2 = client.Ain2().create({
+ain = client.Ain().create({
     "answer": "example_answer",  # str
-    "message": [],  # list
+    "messages": [],  # list
 })
 ```
 

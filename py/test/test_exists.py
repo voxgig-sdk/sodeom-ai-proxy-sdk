@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# SodeomAiProxy SDK exists test
 
 import pytest
 from sodeomaiproxy_sdk import SodeomAiProxySDK

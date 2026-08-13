@@ -66,11 +66,11 @@ function ain_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["SODEOMAIPROXY_TEST_AIN_ENTID"] = {},
-    ["SODEOMAIPROXY_TEST_LIVE"] = "FALSE",
+    ["SODEOM_AI_PROXY_TEST_AIN_ENTID"] = {},
+    ["SODEOM_AI_PROXY_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE"
+  local live = env["SODEOM_AI_PROXY_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

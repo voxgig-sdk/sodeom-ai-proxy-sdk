@@ -71,11 +71,11 @@ function ain_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "SODEOMAIPROXY_TEST_AIN_ENTID" => [],
-        "SODEOMAIPROXY_TEST_LIVE" => "FALSE",
+        "SODEOM_AI_PROXY_TEST_AIN_ENTID" => [],
+        "SODEOM_AI_PROXY_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["SODEOMAIPROXY_TEST_LIVE"] === "TRUE";
+    $live = $env["SODEOM_AI_PROXY_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

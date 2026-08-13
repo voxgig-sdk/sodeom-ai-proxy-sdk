@@ -32,7 +32,7 @@ func TestAinEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"load"} {
+		for _, _op := range []string{"create", "load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "ain." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -44,23 +44,26 @@ func TestAinEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set SODEOMAIPROXY_TEST_AIN_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set SODEOM_AI_PROXY_TEST_AIN_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
 
-		// Bootstrap entity data from existing test data (no create step in flow).
-		ainRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.ain", setup.data)))
-		var ainRef01Data map[string]any
-		if len(ainRef01DataRaw) > 0 {
-			ainRef01Data = core.ToMapAny(ainRef01DataRaw[0][1])
+		// CREATE
+		ainRef01Ent := client.Ain(nil)
+		ainRef01Data := core.ToMapAny(vs.GetProp(
+			vs.GetPath([]any{"new", "ain"}, setup.data), "ain_ref01"))
+
+		ainRef01DataResult, err := ainRef01Ent.Create(ainRef01Data, nil)
+		if err != nil {
+			t.Fatalf("create failed: %v", err)
 		}
-		// Discard guards against Go's unused-var check when the flow's steps
-		// happen not to consume the bootstrap data (e.g. list-only flows).
-		_ = ainRef01Data
+		ainRef01Data = core.ToMapAny(entityData(ainRef01DataResult))
+		if ainRef01Data == nil {
+			t.Fatal("expected create result to be a map")
+		}
 
 		// LOAD
-		ainRef01Ent := client.Ain(nil)
 		ainRef01MatchDt0 := map[string]any{}
 		ainRef01DataDt0Loaded, err := ainRef01Ent.Load(ainRef01MatchDt0, nil)
 		if err != nil {
@@ -110,21 +113,21 @@ func ainBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("SODEOMAIPROXY_TEST_AIN_ENTID")
+	entidEnvRaw := os.Getenv("SODEOM_AI_PROXY_TEST_AIN_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"SODEOMAIPROXY_TEST_AIN_ENTID": idmap,
-		"SODEOMAIPROXY_TEST_LIVE":      "FALSE",
-		"SODEOMAIPROXY_TEST_EXPLAIN":   "FALSE",
+		"SODEOM_AI_PROXY_TEST_AIN_ENTID": idmap,
+		"SODEOM_AI_PROXY_TEST_LIVE":      "FALSE",
+		"SODEOM_AI_PROXY_TEST_EXPLAIN":   "FALSE",
 	})
 
-	idmapResolved := core.ToMapAny(env["SODEOMAIPROXY_TEST_AIN_ENTID"])
+	idmapResolved := core.ToMapAny(env["SODEOM_AI_PROXY_TEST_AIN_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE" {
+	if env["SODEOM_AI_PROXY_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
 			},
@@ -133,13 +136,13 @@ func ainBasicSetup(extra map[string]any) *entityTestSetup {
 		client = sdk.NewSodeomAiProxySDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["SODEOMAIPROXY_TEST_LIVE"] == "TRUE"
+	live := env["SODEOM_AI_PROXY_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["SODEOMAIPROXY_TEST_EXPLAIN"] == "TRUE",
+		explain:       env["SODEOM_AI_PROXY_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

@@ -20,7 +20,7 @@ local SDK_MODULE = "sodeom-ai-proxy_sdk"
 -- A test-mode client seeded with a fixture for every entity. The constructor
 -- of each runnable snippet is rewritten to this form so the offline mock has
 -- data to return.
-local TEST_SEED = '{ entity = { ["ain"] = { ["test01"] = { id = "test01" } }, ["ain2"] = { ["test01"] = { id = "test01" } } } }'
+local TEST_SEED = '{ entity = { ["ain"] = { ["test01"] = { id = "test01" } } } }'
 local TEST_CTOR = "sdk.test(" .. TEST_SEED .. ")"
 
 local function script_dir()

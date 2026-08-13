@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'SodeomAiProxy',
   }
 
 
@@ -47,9 +47,6 @@ class Config {
       ain: {
       },
 
-      ain2: {
-      },
-
     }
   }
 
@@ -63,72 +60,17 @@ class Config {
           "req": true,
           "type": "`$STRING`",
           "index$": 0
-        }
-      ],
-      "name": "ain",
-      "op": {
-        "load": {
-          "input": "data",
-          "name": "load",
-          "points": [
-            {
-              "active": true,
-              "args": {
-                "query": [
-                  {
-                    "active": true,
-                    "example": "Say hi",
-                    "kind": "query",
-                    "name": "query",
-                    "orig": "query",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
-              "method": "GET",
-              "orig": "/ai",
-              "parts": [
-                "ai"
-              ],
-              "select": {
-                "exist": [
-                  "query"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "index$": 0
-            }
-          ],
-          "key$": "load"
-        }
-      },
-      "relations": {
-        "ancestors": []
-      }
-    },
-    "ain2": {
-      "fields": [
-        {
-          "active": true,
-          "name": "answer",
-          "req": true,
-          "type": "`$STRING`",
-          "index$": 0
         },
         {
           "active": true,
-          "name": "max_token",
+          "name": "max_tokens",
           "req": false,
           "type": "`$INTEGER`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "message",
+          "name": "messages",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 2
@@ -148,7 +90,7 @@ class Config {
           "index$": 4
         }
       ],
-      "name": "ain2",
+      "name": "ain",
       "op": {
         "create": {
           "input": "data",
@@ -157,6 +99,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/ai",
               "parts": [
@@ -171,6 +114,45 @@ class Config {
             }
           ],
           "key$": "create"
+        },
+        "load": {
+          "input": "data",
+          "name": "load",
+          "points": [
+            {
+              "active": true,
+              "args": {
+                "query": [
+                  {
+                    "active": true,
+                    "example": "Say hi",
+                    "kind": "query",
+                    "name": "query",
+                    "orig": "query",
+                    "reqd": true,
+                    "type": "`$STRING`"
+                  }
+                ]
+              },
+              "kind": "http",
+              "method": "GET",
+              "orig": "/ai",
+              "parts": [
+                "ai"
+              ],
+              "select": {
+                "exist": [
+                  "query"
+                ]
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "index$": 0
+            }
+          ],
+          "key$": "load"
         }
       },
       "relations": {

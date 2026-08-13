@@ -26,8 +26,8 @@ import {
 describe('AinEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when SODEOMAIPROXY_TEST_LIVE=TRUE.
-  afterEach(liveDelay('SODEOMAIPROXY_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when SODEOM_AI_PROXY_TEST_LIVE=TRUE.
+  afterEach(liveDelay('SODEOM_AI_PROXY_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = SodeomAiProxySDK.test()
@@ -39,7 +39,7 @@ describe('AinEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.SODEOM_AI_PROXY_TEST_LIVE
-    for (const op of ['load']) {
+    for (const op of ['create', 'load']) {
       if (maybeSkipControl(t, 'entityOp', 'ain.' + op, live)) return
     }
 
@@ -57,12 +57,18 @@ describe('AinEntity', async () => {
     const isempty = struct.isempty
     const select = struct.select
 
-    let ain_ref01_data = Object.values(setup.data.existing.ain)[0] as any
+
+    // CREATE
+    const ain_ref01_ent = client.Ain()
+    let ain_ref01_data = setup.data.new.ain['ain_ref01']
+
+    ain_ref01_data = (await ain_ref01_ent.create(ain_ref01_data)).data()
+    assert(null != ain_ref01_data)
+
 
     // LOAD
-    const ain_ref01_ent = client.Ain()
     const ain_ref01_match_dt0: any = {}
-    const ain_ref01_data_dt0 = await ain_ref01_ent.load(ain_ref01_match_dt0)
+    const ain_ref01_data_dt0 = (await ain_ref01_ent.load(ain_ref01_match_dt0)).data()
     assert(null != ain_ref01_data_dt0)
 
 

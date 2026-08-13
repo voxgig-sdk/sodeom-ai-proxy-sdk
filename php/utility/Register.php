@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ SodeomAiProxyUtility::setRegistrar(function (SodeomAiProxyUtility $u): void {
     $u->prepare_params = [SodeomAiProxyPrepareParams::class, 'call'];
     $u->prepare_path = [SodeomAiProxyPreparePath::class, 'call'];
     $u->prepare_query = [SodeomAiProxyPrepareQuery::class, 'call'];
+    $u->graphql_body = [SodeomAiProxyGraphql::class, 'body'];
+    $u->graphql_errors = [SodeomAiProxyGraphql::class, 'errors'];
     $u->result_basic = [SodeomAiProxyResultBasic::class, 'call'];
     $u->result_body = [SodeomAiProxyResultBody::class, 'call'];
     $u->result_headers = [SodeomAiProxyResultHeaders::class, 'call'];

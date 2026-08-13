@@ -23,7 +23,7 @@ class AinEntityTest extends TestCase
         $setup = ain_basic_setup(null);
         // Per-op sdk-test-control.json skip.
         $_live = !empty($setup["live"]);
-        foreach (["load"] as $_op) {
+        foreach (["create", "load"] as $_op) {
             [$_shouldSkip, $_reason] = Runner::is_control_skipped("entityOp", "ain." . $_op, $_live ? "live" : "unit");
             if ($_shouldSkip) {
                 $this->markTestSkipped($_reason ?? "skipped via sdk-test-control.json");
@@ -33,21 +33,21 @@ class AinEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set SODEOMAIPROXY_TEST_AIN_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set SODEOM_AI_PROXY_TEST_AIN_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
 
-        // Bootstrap entity data from existing test data.
-        $ain_ref01_data_raw = Vs::items(Helpers::to_map(
-            Vs::getpath($setup["data"], "existing.ain")));
-        $ain_ref01_data = null;
-        if (count($ain_ref01_data_raw) > 0) {
-            $ain_ref01_data = Helpers::to_map($ain_ref01_data_raw[0][1]);
-        }
+        // CREATE
+        $ain_ref01_ent = $client->Ain(null);
+        $ain_ref01_data = Helpers::to_map(Vs::getprop(
+            Vs::getpath($setup["data"], "new.ain"), "ain_ref01"));
+
+        $ain_ref01_data_result = $ain_ref01_ent->create($ain_ref01_data, null);
+        $ain_ref01_data = Helpers::to_map(is_object($ain_ref01_data_result) && method_exists($ain_ref01_data_result, 'data_get') ? $ain_ref01_data_result->data_get() : $ain_ref01_data_result);
+        $this->assertNotNull($ain_ref01_data);
 
         // LOAD
-        $ain_ref01_ent = $client->Ain(null);
         $ain_ref01_match_dt0 = [];
         $ain_ref01_data_dt0_loaded = $ain_ref01_ent->load($ain_ref01_match_dt0, null);
         $this->assertNotNull($ain_ref01_data_dt0_loaded);
@@ -77,22 +77,22 @@ function ain_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("SODEOMAIPROXY_TEST_AIN_ENTID");
+    $entid_env_raw = getenv("SODEOM_AI_PROXY_TEST_AIN_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "SODEOMAIPROXY_TEST_AIN_ENTID" => $idmap,
-        "SODEOMAIPROXY_TEST_LIVE" => "FALSE",
-        "SODEOMAIPROXY_TEST_EXPLAIN" => "FALSE",
+        "SODEOM_AI_PROXY_TEST_AIN_ENTID" => $idmap,
+        "SODEOM_AI_PROXY_TEST_LIVE" => "FALSE",
+        "SODEOM_AI_PROXY_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["SODEOMAIPROXY_TEST_AIN_ENTID"]);
+        $env["SODEOM_AI_PROXY_TEST_AIN_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["SODEOMAIPROXY_TEST_LIVE"] === "TRUE") {
+    if ($env["SODEOM_AI_PROXY_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -101,13 +101,13 @@ function ain_basic_setup($extra)
         $client = new SodeomAiProxySDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["SODEOMAIPROXY_TEST_LIVE"] === "TRUE";
+    $live = $env["SODEOM_AI_PROXY_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["SODEOMAIPROXY_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["SODEOM_AI_PROXY_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

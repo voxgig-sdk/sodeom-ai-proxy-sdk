@@ -44,10 +44,6 @@ local client = sdk.test()
 
 Create a new `Ain` entity instance. Pass `nil` for no initial data.
 
-#### `Ain2(data)`
-
-Create a new `Ain2` entity instance. Pass `nil` for no initial data.
-
 #### `options_map() -> table`
 
 Return a deep copy of the current SDK options.
@@ -95,8 +91,23 @@ local ain = client:Ain(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `answer` | `string` | Yes |  |
+| `max_tokens` | `number` | No |  |
+| `messages` | `table` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `number` | No |  |
 
 ### Operations
+
+#### `create(reqdata, ctrl) -> any, err`
+
+Create a new entity with the given data.
+
+```lua
+local result, err = client:Ain():create({
+  answer = --[[ string ]],
+  messages = --[[ table ]],
+})
+```
 
 #### `load(reqmatch, ctrl) -> any, err`
 
@@ -127,65 +138,6 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `AinEntity` instance with the same client and
-options.
-
-#### `get_name() -> string`
-
-Return the entity name.
-
-
----
-
-## Ain2Entity
-
-```lua
-local ain2 = client:Ain2(nil)
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `answer` | `string` | Yes |  |
-| `max_token` | `number` | No |  |
-| `message` | `table` | Yes |  |
-| `model` | `string` | No |  |
-| `temperature` | `number` | No |  |
-
-### Operations
-
-#### `create(reqdata, ctrl) -> any, err`
-
-Create a new entity with the given data.
-
-```lua
-local result, err = client:Ain2():create({
-  answer = --[[ string ]],
-  message = --[[ table ]],
-})
-```
-
-### Common Methods
-
-#### `data_get() -> table`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> table`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `Ain2Entity` instance with the same client and
 options.
 
 #### `get_name() -> string`

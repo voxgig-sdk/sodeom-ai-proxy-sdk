@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from sodeomaiproxy_sdk.utility.voxgig_struct import voxgig_struct as vs
 from sodeomaiproxy_sdk import SodeomAiProxySDK
-from core import helpers
+from sodeomaiproxy_sdk.core import helpers
 from test import runner
 
 
@@ -61,11 +61,11 @@ def _ain_direct_setup(mockres):
     calls = []
 
     env = runner.env_override({
-        "SODEOMAIPROXY_TEST_AIN_ENTID": {},
-        "SODEOMAIPROXY_TEST_LIVE": "FALSE",
+        "SODEOM_AI_PROXY_TEST_AIN_ENTID": {},
+        "SODEOM_AI_PROXY_TEST_LIVE": "FALSE",
     })
 
-    live = env.get("SODEOMAIPROXY_TEST_LIVE") == "TRUE"
+    live = env.get("SODEOM_AI_PROXY_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {

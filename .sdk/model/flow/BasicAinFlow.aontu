@@ -8,6 +8,14 @@ main: kit: flow: BasicAinFlow:
   step: [
     {
       input: {
+        ref: "ain_ref01"
+      }
+
+      op: "create"
+    }
+
+    {
+      input: {
         ref: "ain_ref01",
         srcdatavar: "ain_ref01_data",
         suffix: "_dt0"

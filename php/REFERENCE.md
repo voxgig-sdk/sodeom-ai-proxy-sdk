@@ -45,10 +45,6 @@ $client = SodeomAiProxySDK::test();
 
 Create a new `AinEntity` instance. Pass `null` for no initial data.
 
-#### `Ain2($data = null)`
-
-Create a new `Ain2Entity` instance. Pass `null` for no initial data.
-
 #### `options_map(): array`
 
 Return a deep copy of the current SDK options.
@@ -97,8 +93,23 @@ $ain = $client->Ain();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `answer` | `string` | Yes |  |
+| `max_tokens` | `int` | No |  |
+| `messages` | `array` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `float` | No |  |
 
 ### Operations
+
+#### `create(array $reqdata, ?array $ctrl = null): mixed`
+
+Create a new entity with the given data. Throws on error.
+
+```php
+$result = $client->Ain()->create([
+  "answer" => null, // string
+  "messages" => null, // array
+]);
+```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
@@ -129,65 +140,6 @@ Set the entity match criteria.
 #### `make(): AinEntity`
 
 Create a new `AinEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
-## Ain2Entity
-
-```php
-$ain2 = $client->Ain2();
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `answer` | `string` | Yes |  |
-| `max_token` | `int` | No |  |
-| `message` | `array` | Yes |  |
-| `model` | `string` | No |  |
-| `temperature` | `float` | No |  |
-
-### Operations
-
-#### `create(array $reqdata, ?array $ctrl = null): mixed`
-
-Create a new entity with the given data. Throws on error.
-
-```php
-$result = $client->Ain2()->create([
-  "answer" => null, // string
-  "message" => null, // array
-]);
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): Ain2Entity`
-
-Create a new `Ain2Entity` instance with the same client and
 options.
 
 #### `get_name(): string`

@@ -56,6 +56,13 @@ func main() {
         panic(err)
     }
     fmt.Println(ain)
+
+    // Create a ain.
+    created, err := client.Ain(nil).Create(map[string]any{"answer": "example_answer", "messages": []any{}}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(created)
 }
 ```
 
@@ -219,7 +226,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `Ain` | `(data map[string]any) SodeomAiProxyEntity` | Create an Ain entity instance. |
-| `Ain2` | `(data map[string]any) SodeomAiProxyEntity` | Create an Ain2 entity instance. |
 
 ### Entity interface (SodeomAiProxyEntity)
 
@@ -261,22 +267,12 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"answer"` |  |
-
-Operations: Load.
-
-API path: `/ai`
-
-#### Ain2
-
-| Field | Description |
-| --- | --- |
-| `"answer"` |  |
-| `"max_token"` |  |
-| `"message"` |  |
+| `"max_tokens"` |  |
+| `"messages"` |  |
 | `"model"` |  |
 | `"temperature"` |  |
 
-Operations: Create.
+Operations: Create, Load.
 
 API path: `/ai`
 
@@ -294,12 +290,17 @@ Create an instance: `ain := client.Ain(nil)`
 | Method | Description |
 | --- | --- |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
 | `answer` | `string` |  |
+| `max_tokens` | `int` |  |
+| `messages` | `[]any` |  |
+| `model` | `string` |  |
+| `temperature` | `float64` |  |
 
 #### Example: Load
 
@@ -311,33 +312,12 @@ if err != nil {
 fmt.Println(ain) // the loaded record
 ```
 
-
-### Ain2
-
-Create an instance: `ain2 := client.Ain2(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
-
-#### Fields
-
-| Field | Type | Description |
-| --- | --- | --- |
-| `answer` | `string` |  |
-| `max_token` | `int` |  |
-| `message` | `[]any` |  |
-| `model` | `string` |  |
-| `temperature` | `float64` |  |
-
 #### Example: Create
 
 ```go
-result, err := client.Ain2(nil).Create(map[string]any{
+result, err := client.Ain(nil).Create(map[string]any{
     "answer": "example_answer",
-    "message": []any{},
+    "messages": []any{},
 }, nil)
 if err != nil {
     panic(err)

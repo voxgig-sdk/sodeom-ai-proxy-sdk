@@ -12,8 +12,24 @@
 #
 # @!attribute [rw] answer
 #   @return [String]
+#
+# @!attribute [rw] max_tokens
+#   @return [Integer, nil]
+#
+# @!attribute [rw] messages
+#   @return [Array]
+#
+# @!attribute [rw] model
+#   @return [String, nil]
+#
+# @!attribute [rw] temperature
+#   @return [Float, nil]
 Ain = Struct.new(
   :answer,
+  :max_tokens,
+  :messages,
+  :model,
+  :temperature,
   keyword_init: true
 )
 
@@ -21,45 +37,36 @@ Ain = Struct.new(
 #
 # @!attribute [rw] answer
 #   @return [String, nil]
-AinLoadMatch = Struct.new(
-  :answer,
-  keyword_init: true
-)
-
-# Ain2 entity data model.
 #
-# @!attribute [rw] answer
-#   @return [String]
-#
-# @!attribute [rw] max_token
+# @!attribute [rw] max_tokens
 #   @return [Integer, nil]
 #
-# @!attribute [rw] message
-#   @return [Array]
+# @!attribute [rw] messages
+#   @return [Array, nil]
 #
 # @!attribute [rw] model
 #   @return [String, nil]
 #
 # @!attribute [rw] temperature
 #   @return [Float, nil]
-Ain2 = Struct.new(
+AinLoadMatch = Struct.new(
   :answer,
-  :max_token,
-  :message,
+  :max_tokens,
+  :messages,
   :model,
   :temperature,
   keyword_init: true
 )
 
-# Request payload for Ain2#create.
+# Request payload for Ain#create.
 #
 # @!attribute [rw] answer
 #   @return [String]
 #
-# @!attribute [rw] max_token
+# @!attribute [rw] max_tokens
 #   @return [Integer, nil]
 #
-# @!attribute [rw] message
+# @!attribute [rw] messages
 #   @return [Array]
 #
 # @!attribute [rw] model
@@ -67,10 +74,10 @@ Ain2 = Struct.new(
 #
 # @!attribute [rw] temperature
 #   @return [Float, nil]
-Ain2CreateData = Struct.new(
+AinCreateData = Struct.new(
   :answer,
-  :max_token,
-  :message,
+  :max_tokens,
+  :messages,
   :model,
   :temperature,
   keyword_init: true

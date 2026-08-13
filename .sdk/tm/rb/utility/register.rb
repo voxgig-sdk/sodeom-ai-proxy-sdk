@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ SodeomAiProxyUtility.registrar = ->(u) {
   u.prepare_params = SodeomAiProxyUtilities::PrepareParams
   u.prepare_path = SodeomAiProxyUtilities::PreparePath
   u.prepare_query = SodeomAiProxyUtilities::PrepareQuery
+  u.graphql_body = SodeomAiProxyUtilities::GraphqlBody
+  u.graphql_errors = SodeomAiProxyUtilities::GraphqlErrors
   u.result_basic = SodeomAiProxyUtilities::ResultBasic
   u.result_body = SodeomAiProxyUtilities::ResultBody
   u.result_headers = SodeomAiProxyUtilities::ResultHeaders

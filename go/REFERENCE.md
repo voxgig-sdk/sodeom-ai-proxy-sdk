@@ -51,10 +51,6 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 Create a new `Ain` entity instance. Pass `nil` for no initial data.
 
-#### `Ain2(data map[string]any) SodeomAiProxyEntity`
-
-Create a new `Ain2` entity instance. Pass `nil` for no initial data.
-
 #### `OptionsMap() map[string]any`
 
 Return a deep copy of the current SDK options.
@@ -103,6 +99,10 @@ fmt.Println(ain.GetName()) // "ain"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `answer` | `string` | Yes |  |
+| `max_tokens` | `int` | No |  |
+| `messages` | `[]any` | Yes |  |
+| `model` | `string` | No |  |
+| `temperature` | `float64` | No |  |
 
 ### Operations
 
@@ -118,57 +118,14 @@ if err != nil {
 fmt.Println(result)
 ```
 
-### Common Methods
-
-#### `Data(args ...any) any`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `Match(args ...any) any`
-
-Get or set the entity match criteria. Works the same as `Data()`.
-
-#### `Make() Entity`
-
-Create a new `AinEntity` instance with the same client and
-options.
-
-#### `GetName() string`
-
-Return the entity name.
-
-
----
-
-## Ain2Entity
-
-```go
-ain2 := client.Ain2(nil)
-fmt.Println(ain2.GetName()) // "ain2"
-```
-
-### Fields
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `answer` | `string` | Yes |  |
-| `max_token` | `int` | No |  |
-| `message` | `[]any` | Yes |  |
-| `model` | `string` | No |  |
-| `temperature` | `float64` | No |  |
-
-### Operations
-
 #### `Create(reqdata, ctrl map[string]any) (any, error)`
 
 Create a new entity with the given data.
 
 ```go
-result, err := client.Ain2(nil).Create(map[string]any{
+result, err := client.Ain(nil).Create(map[string]any{
     "answer": "example_answer",
-    "message": []any{},
+    "messages": []any{},
 }, nil)
 if err != nil {
     panic(err)
@@ -190,7 +147,7 @@ Get or set the entity match criteria. Works the same as `Data()`.
 
 #### `Make() Entity`
 
-Create a new `Ain2Entity` instance with the same client and
+Create a new `AinEntity` instance with the same client and
 options.
 
 #### `GetName() string`

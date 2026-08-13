@@ -16,30 +16,28 @@ declare(strict_types=1);
 class Ain
 {
     public string $answer;
+    public ?int $max_tokens = null;
+    public array $messages;
+    public ?string $model = null;
+    public ?float $temperature = null;
 }
 
 /** Request payload for Ain#load. */
 class AinLoadMatch
 {
     public ?string $answer = null;
-}
-
-/** Ain2 entity data model. */
-class Ain2
-{
-    public string $answer;
-    public ?int $max_token = null;
-    public array $message;
+    public ?int $max_tokens = null;
+    public ?array $messages = null;
     public ?string $model = null;
     public ?float $temperature = null;
 }
 
-/** Request payload for Ain2#create. */
-class Ain2CreateData
+/** Request payload for Ain#create. */
+class AinCreateData
 {
     public string $answer;
-    public ?int $max_token = null;
-    public array $message;
+    public ?int $max_tokens = null;
+    public array $messages;
     public ?string $model = null;
     public ?float $temperature = null;
 }

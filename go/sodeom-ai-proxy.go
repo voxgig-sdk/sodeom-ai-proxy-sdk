@@ -35,9 +35,6 @@ func init() {
 	core.NewAinEntityFunc = func(client *core.SodeomAiProxySDK, entopts map[string]any) core.SodeomAiProxyEntity {
 		return entity.NewAinEntity(client, entopts)
 	}
-	core.NewAin2EntityFunc = func(client *core.SodeomAiProxySDK, entopts map[string]any) core.SodeomAiProxyEntity {
-		return entity.NewAin2Entity(client, entopts)
-	}
 }
 
 // Constructor re-exports.

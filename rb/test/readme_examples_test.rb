@@ -43,7 +43,6 @@ class ReadmeExamplesTest < Minitest::Test
   # Entity accessor (client.<Name>) => fixture storage key (lowercase name).
   ENTITIES = {
     "Ain" => "ain",
-    "Ain2" => "ain2",
   }
 
   # Documented SDK method names — used only to recognise the NARROW

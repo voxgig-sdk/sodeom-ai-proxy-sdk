@@ -8,21 +8,22 @@
 
 ---@class Ain
 ---@field answer string
-
----@class AinLoadMatch
----@field answer? string
-
----@class Ain2
----@field answer string
----@field max_token? number
----@field message table
+---@field max_tokens? number
+---@field messages table
 ---@field model? string
 ---@field temperature? number
 
----@class Ain2CreateData
+---@class AinLoadMatch
+---@field answer? string
+---@field max_tokens? number
+---@field messages? table
+---@field model? string
+---@field temperature? number
+
+---@class AinCreateData
 ---@field answer string
----@field max_token? number
----@field message table
+---@field max_tokens? number
+---@field messages table
 ---@field model? string
 ---@field temperature? number
 
