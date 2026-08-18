@@ -23,7 +23,7 @@ func NewSodeomAiProxySDK(options map[string]any) *SodeomAiProxySDK {
 
 	sdk.utility = NewUtility()
 
-	config := MakeConfig()
+	config := SharedConfig()
 
 	sdk.rootctx = sdk.utility.MakeContext(map[string]any{
 		"client":  sdk,

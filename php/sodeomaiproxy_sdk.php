@@ -40,7 +40,7 @@ class SodeomAiProxySDK
         $utility = new SodeomAiProxyUtility();
         $this->_utility = $utility;
 
-        $config = SodeomAiProxyConfig::make_config();
+        $config = SodeomAiProxyConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

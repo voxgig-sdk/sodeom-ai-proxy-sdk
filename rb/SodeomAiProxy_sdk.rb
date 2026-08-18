@@ -28,7 +28,7 @@ class SodeomAiProxySDK
     utility = SodeomAiProxyUtility.new
     @_utility = utility
 
-    config = SodeomAiProxyConfig.make_config
+    config = SodeomAiProxyConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
