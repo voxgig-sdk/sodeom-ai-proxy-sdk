@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -297,11 +297,11 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `answer` |  |
-| `max_tokens` |  |
-| `messages` |  |
-| `model` |  |
-| `temperature` |  |
+| `answer` | Generated text response from the AI model |
+| `max_tokens` | Maximum tokens for the response |
+| `messages` | Chat history array passed to the model |
+| `model` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 Operations: create, load.
 
@@ -327,11 +327,11 @@ Create an instance: `const ain = client.Ain()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `answer` | `string` |  |
-| `max_tokens` | `number` |  |
-| `messages` | `any[]` |  |
-| `model` | `string` |  |
-| `temperature` | `number` |  |
+| `answer` | `string` | Generated text response from the AI model |
+| `max_tokens` | `number` | Maximum tokens for the response |
+| `messages` | `any[]` | Chat history array passed to the model |
+| `model` | `string` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | `number` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 #### Example: Load
 

@@ -235,11 +235,11 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `answer` |  |
-| `max_tokens` |  |
-| `messages` |  |
-| `model` |  |
-| `temperature` |  |
+| `answer` | Generated text response from the AI model |
+| `max_tokens` | Maximum tokens for the response |
+| `messages` | Chat history array passed to the model |
+| `model` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 Operations: Create, Load.
 
@@ -265,11 +265,11 @@ Create an instance: `local ain = client:Ain(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `answer` | `string` |  |
-| `max_tokens` | `number` |  |
-| `messages` | `table` |  |
-| `model` | `string` |  |
-| `temperature` | `number` |  |
+| `answer` | `string` | Generated text response from the AI model |
+| `max_tokens` | `number` | Maximum tokens for the response |
+| `messages` | `table` | Chat history array passed to the model |
+| `model` | `string` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | `number` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 #### Example: Load
 

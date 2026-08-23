@@ -6,7 +6,7 @@ The Golang SDK for the SodeomAiProxy API — an entity-oriented client using sta
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Ain(nil)` — each with the same small set of operations (`Load`, `Create`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -266,11 +266,11 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"answer"` |  |
-| `"max_tokens"` |  |
-| `"messages"` |  |
-| `"model"` |  |
-| `"temperature"` |  |
+| `"answer"` | Generated text response from the AI model |
+| `"max_tokens"` | Maximum tokens for the response |
+| `"messages"` | Chat history array passed to the model |
+| `"model"` | Overrides the default model (gpt-4o-mini) |
+| `"temperature"` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 Operations: Create, Load.
 
@@ -296,11 +296,11 @@ Create an instance: `ain := client.Ain(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `answer` | `string` |  |
-| `max_tokens` | `int` |  |
-| `messages` | `[]any` |  |
-| `model` | `string` |  |
-| `temperature` | `float64` |  |
+| `answer` | `string` | Generated text response from the AI model |
+| `max_tokens` | `int` | Maximum tokens for the response |
+| `messages` | `[]any` | Chat history array passed to the model |
+| `model` | `string` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | `float64` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 #### Example: Load
 

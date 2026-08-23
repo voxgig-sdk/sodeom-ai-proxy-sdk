@@ -244,11 +244,11 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `answer` |  |
-| `max_tokens` |  |
-| `messages` |  |
-| `model` |  |
-| `temperature` |  |
+| `answer` | Generated text response from the AI model |
+| `max_tokens` | Maximum tokens for the response |
+| `messages` | Chat history array passed to the model |
+| `model` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 Operations: Create, Load.
 
@@ -274,11 +274,11 @@ Create an instance: `ain = client.Ain`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `answer` | `String` |  |
-| `max_tokens` | `Integer` |  |
-| `messages` | `Array` |  |
-| `model` | `String` |  |
-| `temperature` | `Float` |  |
+| `answer` | `String` | Generated text response from the AI model |
+| `max_tokens` | `Integer` | Maximum tokens for the response |
+| `messages` | `Array` | Chat history array passed to the model |
+| `model` | `String` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | `Float` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 #### Example: Load
 

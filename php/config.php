@@ -33,6 +33,9 @@ class SodeomAiProxyConfig
         return [
             "main" => [
                 "name" => "SodeomAiProxy",
+                "slug" => "sodeom-ai-proxy",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
@@ -56,23 +59,28 @@ class SodeomAiProxyConfig
             [
               'name' => 'answer',
               'req' => true,
+              'short' => 'Generated text response from the AI model',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'max_tokens',
+              'short' => 'Maximum tokens for the response',
               'type' => '`$INTEGER`',
             ],
             [
               'name' => 'messages',
               'req' => true,
+              'short' => 'Chat history array passed to the model',
               'type' => '`$ARRAY`',
             ],
             [
               'name' => 'model',
+              'short' => 'Overrides the default model (gpt-4o-mini)',
               'type' => '`$STRING`',
             ],
             [
               'name' => 'temperature',
+              'short' => 'Sampling temperature passed through to the model (0.0 to 2.0)',
               'type' => '`$NUMBER`',
             ],
           ],

@@ -250,11 +250,11 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `answer` |  |
-| `max_tokens` |  |
-| `messages` |  |
-| `model` |  |
-| `temperature` |  |
+| `answer` | Generated text response from the AI model |
+| `max_tokens` | Maximum tokens for the response |
+| `messages` | Chat history array passed to the model |
+| `model` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 Operations: Create, Load.
 
@@ -280,11 +280,11 @@ Create an instance: `ain = client.Ain()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `answer` | `str` |  |
-| `max_tokens` | `int` |  |
-| `messages` | `list` |  |
-| `model` | `str` |  |
-| `temperature` | `float` |  |
+| `answer` | `str` | Generated text response from the AI model |
+| `max_tokens` | `int` | Maximum tokens for the response |
+| `messages` | `list` | Chat history array passed to the model |
+| `model` | `str` | Overrides the default model (gpt-4o-mini) |
+| `temperature` | `float` | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 #### Example: Load
 

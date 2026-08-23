@@ -36,30 +36,35 @@
               "active": true,
               "name": "answer",
               "req": true,
+              "short": "Generated text response from the AI model",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "max_tokens",
               "req": false,
+              "short": "Maximum tokens for the response",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "messages",
               "req": true,
+              "short": "Chat history array passed to the model",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "model",
               "req": false,
+              "short": "Overrides the default model (gpt-4o-mini)",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "temperature",
               "req": false,
+              "short": "Sampling temperature passed through to the model (0.0 to 2.0)",
               "type": "`$NUMBER`"
             }
           ],

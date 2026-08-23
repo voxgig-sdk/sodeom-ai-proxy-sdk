@@ -93,11 +93,11 @@ ain = client.Ain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `answer` | `String` | Yes |  |
-| `max_tokens` | `Integer` | No |  |
-| `messages` | `Array` | Yes |  |
-| `model` | `String` | No |  |
-| `temperature` | `Float` | No |  |
+| `answer` | `String` | Yes | Generated text response from the AI model |
+| `max_tokens` | `Integer` | No | Maximum tokens for the response |
+| `messages` | `Array` | Yes | Chat history array passed to the model |
+| `model` | `String` | No | Overrides the default model (gpt-4o-mini) |
+| `temperature` | `Float` | No | Sampling temperature passed through to the model (0.0 to 2.0) |
 
 ### Operations
 

@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "SodeomAiProxy",
+			"slug": "sodeom-ai-proxy",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -34,23 +37,28 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"name": "answer",
 						"req": true,
+						"short": "Generated text response from the AI model",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "max_tokens",
+						"short": "Maximum tokens for the response",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "messages",
 						"req": true,
+						"short": "Chat history array passed to the model",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "model",
+						"short": "Overrides the default model (gpt-4o-mini)",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "temperature",
+						"short": "Sampling temperature passed through to the model (0.0 to 2.0)",
 						"type": "`$NUMBER`",
 					},
 				},

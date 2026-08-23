@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'SodeomAiProxy',
+        slug: "sodeom-ai-proxy",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -57,23 +68,28 @@ class Config {
         {
           "name": "answer",
           "req": true,
+          "short": "Generated text response from the AI model",
           "type": "`$STRING`"
         },
         {
           "name": "max_tokens",
+          "short": "Maximum tokens for the response",
           "type": "`$INTEGER`"
         },
         {
           "name": "messages",
           "req": true,
+          "short": "Chat history array passed to the model",
           "type": "`$ARRAY`"
         },
         {
           "name": "model",
+          "short": "Overrides the default model (gpt-4o-mini)",
           "type": "`$STRING`"
         },
         {
           "name": "temperature",
+          "short": "Sampling temperature passed through to the model (0.0 to 2.0)",
           "type": "`$NUMBER`"
         }
       ],
