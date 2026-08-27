@@ -42,6 +42,7 @@ class SodeomAiProxyConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [
