@@ -27,12 +27,8 @@ class Ain(AinRequired, total=False):
     temperature: float
 
 
-class AinLoadMatch(TypedDict, total=False):
-    answer: str
-    max_tokens: int
-    messages: list
-    model: str
-    temperature: float
+class AinLoadMatch(TypedDict):
+    query: str
 
 
 class AinCreateDataRequired(TypedDict):

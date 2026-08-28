@@ -25,11 +25,7 @@ class Ain
 /** Request payload for Ain#load. */
 class AinLoadMatch
 {
-    public ?string $answer = null;
-    public ?int $max_tokens = null;
-    public ?array $messages = null;
-    public ?string $model = null;
-    public ?float $temperature = null;
+    public string $query;
 }
 
 /** Request payload for Ain#create. */

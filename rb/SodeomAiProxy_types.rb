@@ -35,26 +35,10 @@ Ain = Struct.new(
 
 # Request payload for Ain#load.
 #
-# @!attribute [rw] answer
-#   @return [String, nil]
-#
-# @!attribute [rw] max_tokens
-#   @return [Integer, nil]
-#
-# @!attribute [rw] messages
-#   @return [Array, nil]
-#
-# @!attribute [rw] model
-#   @return [String, nil]
-#
-# @!attribute [rw] temperature
-#   @return [Float, nil]
+# @!attribute [rw] query
+#   @return [String]
 AinLoadMatch = Struct.new(
-  :answer,
-  :max_tokens,
-  :messages,
-  :model,
-  :temperature,
+  :query,
   keyword_init: true
 )
 

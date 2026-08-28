@@ -23,11 +23,7 @@ type Ain struct {
 
 // AinLoadMatch is the typed request payload for Ain.LoadTyped.
 type AinLoadMatch struct {
-	Answer *string `json:"answer,omitempty"`
-	MaxTokens *int `json:"max_tokens,omitempty"`
-	Messages *[]any `json:"messages,omitempty"`
-	Model *string `json:"model,omitempty"`
-	Temperature *float64 `json:"temperature,omitempty"`
+	Query string `json:"query"`
 }
 
 // AinCreateData is the typed request payload for Ain.CreateTyped.

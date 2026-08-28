@@ -14,11 +14,7 @@ export interface Ain {
 }
 
 export interface AinLoadMatch {
-  answer?: string
-  max_tokens?: number
-  messages?: any[]
-  model?: string
-  temperature?: number
+  query: string
 }
 
 export interface AinCreateData {
