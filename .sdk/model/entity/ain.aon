@@ -45,8 +45,10 @@ main: kit: entity: ain: {
         {
           method: "POST"
           orig: "/ai"
-          parts: [
-            "ai"
+          segments: [
+            {
+              lit: "ai"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -73,8 +75,10 @@ main: kit: entity: ain: {
           }
           method: "GET"
           orig: "/ai"
-          parts: [
-            "ai"
+          segments: [
+            {
+              lit: "ai"
+            }
           ]
           select: {
             exist: [

@@ -70,13 +70,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/ai",
-                ["parts"] = {
-                  "ai",
+                ["segments"] = {
+                  {
+                    ["lit"] = "ai",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "ai",
                 },
               },
             },
@@ -101,8 +106,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/ai",
-                ["parts"] = {
-                  "ai",
+                ["segments"] = {
+                  {
+                    ["lit"] = "ai",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -112,6 +119,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "ai",
                 },
               },
             },

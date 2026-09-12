@@ -96,13 +96,18 @@ class SodeomAiProxyConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/ai',
-                  'parts' => [
-                    'ai',
+                  'segments' => [
+                    [
+                      'lit' => 'ai',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'ai',
                   ],
                 ],
               ],
@@ -127,8 +132,10 @@ class SodeomAiProxyConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/ai',
-                  'parts' => [
-                    'ai',
+                  'segments' => [
+                    [
+                      'lit' => 'ai',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -138,6 +145,9 @@ class SodeomAiProxyConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'ai',
                   ],
                 ],
               ],
