@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { SodeomAiProxySDK } from '@voxgig-sdk/sodeom-ai-proxy'
+import { SodeomAiProxySDK } from '@voxgig-sdk/sodeom-ai-proxy-sdk'
 
 const client = new SodeomAiProxySDK()
 ```
@@ -431,7 +431,7 @@ sodeom-ai-proxy/
 Import the SDK from the package root:
 
 ```ts
-import { SodeomAiProxySDK } from '@voxgig-sdk/sodeom-ai-proxy'
+import { SodeomAiProxySDK } from '@voxgig-sdk/sodeom-ai-proxy-sdk'
 ```
 
 ### Entity state

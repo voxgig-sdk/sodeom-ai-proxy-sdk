@@ -105,7 +105,7 @@ local result, err = client:Ain():load({ query = "example" })
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
+| TypeScript | `@voxgig-sdk/sodeom-ai-proxy-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
 | Python | `voxgig-sdk-sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
 | PHP | `voxgig-sdk/sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go` | `go get github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go@latest` |
@@ -119,7 +119,7 @@ local result, err = client:Ain():load({ query = "example" })
 ### TypeScript
 
 ```ts
-import { SodeomAiProxySDK } from '@voxgig-sdk/sodeom-ai-proxy'
+import { SodeomAiProxySDK } from '@voxgig-sdk/sodeom-ai-proxy-sdk'
 
 const client = new SodeomAiProxySDK()
 
