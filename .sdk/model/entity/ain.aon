@@ -43,6 +43,12 @@ main: kit: entity: ain: {
       name: "create"
       points: [
         {
+          contract: {
+            id: "POST /ai"
+            json: "{\"operationId\":\"postAiResponse\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"example\":{\"messages\":[{\"content\":\"Say hi\",\"role\":\"user\"}],\"model\":\"gpt-4o-mini\",\"temperature\":0.7},\"schema\":{\"properties\":{\"max_tokens\":{\"description\":\"Maximum tokens for the response\",\"example\":2048,\"minimum\":1,\"type\":\"integer\"},\"messages\":{\"description\":\"Chat history array passed to the model\",\"items\":{\"properties\":{\"content\":{\"description\":\"The content of the message\",\"example\":\"Say hi\",\"type\":\"string\"},\"role\":{\"description\":\"The role of the message sender\",\"enum\":[\"system\",\"user\",\"assistant\"],\"example\":\"user\",\"type\":\"string\"}},\"required\":[\"role\",\"content\"],\"type\":\"object\"},\"minItems\":1,\"type\":\"array\"},\"model\":{\"description\":\"Overrides the default model (gpt-4o-mini)\",\"example\":\"gpt-4o-mini\",\"type\":\"string\"},\"temperature\":{\"description\":\"Sampling temperature passed through to the model (0.0 to 2.0)\",\"example\":0.7,\"maximum\":2,\"minimum\":0,\"type\":\"number\"}},\"required\":[\"messages\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"answer\":\"Hello! How can I assist you today?\"},\"schema\":{\"properties\":{\"answer\":{\"description\":\"Generated text response from the AI model\",\"example\":\"Hello! How can I assist you today?\",\"type\":\"string\"}},\"required\":[\"answer\"],\"type\":\"object\"}}},\"description\":\"Successful response with generated text\"},\"400\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Missing query and messages\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request - Missing messages array\"},\"500\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Upstream API error\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error - Upstream API error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "POST"
           orig: "/ai"
           segments: [
@@ -72,6 +78,12 @@ main: kit: entity: ain: {
                 type: "`$STRING`"
               }
             ]
+          }
+          contract: {
+            id: "GET /ai"
+            json: "{\"operationId\":\"getAiResponse\",\"parameters\":[{\"description\":\"Simple prompt text used to build messages\",\"example\":\"Say hi\",\"in\":\"query\",\"name\":\"query\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"answer\":\"Hello! How can I assist you today?\"},\"schema\":{\"properties\":{\"answer\":{\"description\":\"Generated text response from the AI model\",\"example\":\"Hello! How can I assist you today?\",\"type\":\"string\"}},\"required\":[\"answer\"],\"type\":\"object\"}}},\"description\":\"Successful response with generated text\"},\"400\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Missing query and messages\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request - Missing query parameter\"},\"500\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Upstream API error\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error - Upstream API error\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
           }
           method: "GET"
           orig: "/ai"

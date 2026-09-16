@@ -1,12 +1,18 @@
 # SodeomAiProxy SDK feature factory
 
 from sodeomaiproxy_sdk.feature.base_feature import SodeomAiProxyBaseFeature
+from sodeomaiproxy_sdk.feature.ratelimit_feature import SodeomAiProxyRatelimitFeature
+from sodeomaiproxy_sdk.feature.retry_feature import SodeomAiProxyRetryFeature
 from sodeomaiproxy_sdk.feature.test_feature import SodeomAiProxyTestFeature
+from sodeomaiproxy_sdk.feature.timeout_feature import SodeomAiProxyTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: SodeomAiProxyBaseFeature(),
+    "ratelimit": lambda: SodeomAiProxyRatelimitFeature(),
+    "retry": lambda: SodeomAiProxyRetryFeature(),
     "test": lambda: SodeomAiProxyTestFeature(),
+    "timeout": lambda: SodeomAiProxyTimeoutFeature(),
 }
 
 
