@@ -105,12 +105,12 @@ local result, err = client:Ain():load({ query = "example" })
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/sodeom-ai-proxy-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
-| Python | `voxgig-sdk-sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
-| PHP | `voxgig-sdk/sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
+| TypeScript | `@voxgig-sdk/sodeom-ai-proxy-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/tags) |
+| Python | `voxgig-sdk-sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/tags) |
+| PHP | `voxgig-sdk/sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go` | `go get github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go@latest` |
-| Ruby | `voxgig-sdk-sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
-| Lua | `voxgig-sdk-sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases) |
+| Ruby | `voxgig-sdk-sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/tags) |
+| Lua | `voxgig-sdk-sodeom-ai-proxy` | publish pending — [install from git tag](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go-cli` | `go install github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go-cli/cmd/sodeom-ai-proxy@latest` |
 | Go MCP server | `github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go-mcp` | `go get github.com/voxgig-sdk/sodeom-ai-proxy-sdk/go-mcp@latest` |
 
