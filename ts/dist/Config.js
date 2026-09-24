@@ -11,19 +11,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -114,30 +107,35 @@ class Config {
             "fields": [
                 {
                     "name": "answer",
+                    "title": "Answer",
+                    "type": "`$STRING`",
                     "req": true,
-                    "short": "Generated text response from the AI model",
-                    "type": "`$STRING`"
+                    "short": "Generated text response from the AI model"
                 },
                 {
                     "name": "max_tokens",
-                    "short": "Maximum tokens for the response",
-                    "type": "`$INTEGER`"
+                    "title": "Max Tokens",
+                    "type": "`$INTEGER`",
+                    "short": "Maximum tokens for the response"
                 },
                 {
                     "name": "messages",
+                    "title": "Messages",
+                    "type": "`$ARRAY`",
                     "req": true,
-                    "short": "Chat history array passed to the model",
-                    "type": "`$ARRAY`"
+                    "short": "Chat history array passed to the model"
                 },
                 {
                     "name": "model",
-                    "short": "Overrides the default model (gpt-4o-mini)",
-                    "type": "`$STRING`"
+                    "title": "Model",
+                    "type": "`$STRING`",
+                    "short": "Overrides the default model (gpt-4o-mini)"
                 },
                 {
                     "name": "temperature",
-                    "short": "Sampling temperature passed through to the model (0.0 to 2.0)",
-                    "type": "`$NUMBER`"
+                    "title": "Temperature",
+                    "type": "`$NUMBER`",
+                    "short": "Sampling temperature passed through to the model (0.0 to 2.0)"
                 }
             ],
             "name": "ain",
@@ -147,7 +145,6 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "args": {},
                             "kind": "http",
                             "method": "POST",
                             "orig": "/ai",
@@ -156,14 +153,16 @@ class Config {
                                     "lit": "ai"
                                 }
                             ],
-                            "select": {},
+                            "parts": [
+                                "ai"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "ai"
-                            ]
+                            "args": {},
+                            "select": {}
                         }
                     ]
                 },
@@ -172,18 +171,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "query": [
-                                    {
-                                        "example": "Say hi",
-                                        "kind": "query",
-                                        "name": "query",
-                                        "orig": "query",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/ai",
@@ -192,18 +179,31 @@ class Config {
                                     "lit": "ai"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "query"
-                                ]
-                            },
+                            "parts": [
+                                "ai"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": "`reqdata`",
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "ai"
-                            ]
+                            "args": {
+                                "query": [
+                                    {
+                                        "name": "query",
+                                        "orig": "query",
+                                        "type": "`$STRING`",
+                                        "kind": "query",
+                                        "reqd": true,
+                                        "example": "Say hi"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "query"
+                                ]
+                            }
                         }
                     ]
                 }

@@ -91,30 +91,35 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "answer",
+						"title": "Answer",
+						"type": "`$STRING`",
 						"req": true,
 						"short": "Generated text response from the AI model",
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "max_tokens",
-						"short": "Maximum tokens for the response",
+						"title": "Max Tokens",
 						"type": "`$INTEGER`",
+						"short": "Maximum tokens for the response",
 					},
 					map[string]any{
 						"name": "messages",
+						"title": "Messages",
+						"type": "`$ARRAY`",
 						"req": true,
 						"short": "Chat history array passed to the model",
-						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "model",
-						"short": "Overrides the default model (gpt-4o-mini)",
+						"title": "Model",
 						"type": "`$STRING`",
+						"short": "Overrides the default model (gpt-4o-mini)",
 					},
 					map[string]any{
 						"name": "temperature",
-						"short": "Sampling temperature passed through to the model (0.0 to 2.0)",
+						"title": "Temperature",
 						"type": "`$NUMBER`",
+						"short": "Sampling temperature passed through to the model (0.0 to 2.0)",
 					},
 				},
 				"name": "ain",
@@ -124,7 +129,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/ai",
@@ -133,14 +137,16 @@ func MakeConfig() map[string]any {
 										"lit": "ai",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"ai",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"ai",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -149,18 +155,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"example": "Say hi",
-											"kind": "query",
-											"name": "query",
-											"orig": "query",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/ai",
@@ -169,17 +163,30 @@ func MakeConfig() map[string]any {
 										"lit": "ai",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"query",
-									},
+								"parts": []any{
+									"ai",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"ai",
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "query",
+											"orig": "query",
+											"type": "`$STRING`",
+											"kind": "query",
+											"reqd": true,
+											"example": "Say hi",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"query",
+									},
 								},
 							},
 						},

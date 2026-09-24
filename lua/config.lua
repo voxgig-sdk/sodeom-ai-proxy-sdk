@@ -87,30 +87,35 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "answer",
+            ["title"] = "Answer",
+            ["type"] = "`$STRING`",
             ["req"] = true,
             ["short"] = "Generated text response from the AI model",
-            ["type"] = "`$STRING`",
           },
           {
             ["name"] = "max_tokens",
-            ["short"] = "Maximum tokens for the response",
+            ["title"] = "Max Tokens",
             ["type"] = "`$INTEGER`",
+            ["short"] = "Maximum tokens for the response",
           },
           {
             ["name"] = "messages",
+            ["title"] = "Messages",
+            ["type"] = "`$ARRAY`",
             ["req"] = true,
             ["short"] = "Chat history array passed to the model",
-            ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "model",
-            ["short"] = "Overrides the default model (gpt-4o-mini)",
+            ["title"] = "Model",
             ["type"] = "`$STRING`",
+            ["short"] = "Overrides the default model (gpt-4o-mini)",
           },
           {
             ["name"] = "temperature",
-            ["short"] = "Sampling temperature passed through to the model (0.0 to 2.0)",
+            ["title"] = "Temperature",
             ["type"] = "`$NUMBER`",
+            ["short"] = "Sampling temperature passed through to the model (0.0 to 2.0)",
           },
         },
         ["name"] = "ain",
@@ -120,7 +125,6 @@ local function make_config()
             ["name"] = "create",
             ["points"] = {
               {
-                ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/ai",
@@ -129,14 +133,16 @@ local function make_config()
                     ["lit"] = "ai",
                   },
                 },
-                ["select"] = {},
+                ["parts"] = {
+                  "ai",
+                },
+                ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "ai",
-                },
+                ["args"] = {},
+                ["select"] = {},
               },
             },
           },
@@ -145,18 +151,6 @@ local function make_config()
             ["name"] = "load",
             ["points"] = {
               {
-                ["args"] = {
-                  ["query"] = {
-                    {
-                      ["example"] = "Say hi",
-                      ["kind"] = "query",
-                      ["name"] = "query",
-                      ["orig"] = "query",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/ai",
@@ -165,17 +159,30 @@ local function make_config()
                     ["lit"] = "ai",
                   },
                 },
-                ["select"] = {
-                  ["exist"] = {
-                    "query",
-                  },
+                ["parts"] = {
+                  "ai",
                 },
+                ["rename"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["parts"] = {
-                  "ai",
+                ["args"] = {
+                  ["query"] = {
+                    {
+                      ["name"] = "query",
+                      ["orig"] = "query",
+                      ["type"] = "`$STRING`",
+                      ["kind"] = "query",
+                      ["reqd"] = true,
+                      ["example"] = "Say hi",
+                    },
+                  },
+                },
+                ["select"] = {
+                  ["exist"] = {
+                    "query",
+                  },
                 },
               },
             },

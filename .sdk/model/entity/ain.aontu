@@ -1,0 +1,114 @@
+# Entity: ain
+
+main: kit: entity: ain: {
+
+  alias: field: {}
+
+  fields: {
+    answer: {
+      h: "Answer"
+      n: "answer"
+      r: true
+      sh: "Generated text response from the AI model"
+      t: "`$STRING`"
+    }
+    max_tokens: {
+      h: "Max Tokens"
+      n: "max_tokens"
+      r: false
+      sh: "Maximum tokens for the response"
+      t: "`$INTEGER`"
+    }
+    messages: {
+      h: "Messages"
+      n: "messages"
+      r: true
+      sh: "Chat history array passed to the model"
+      t: "`$ARRAY`"
+    }
+    model: {
+      h: "Model"
+      n: "model"
+      r: false
+      sh: "Overrides the default model (gpt-4o-mini)"
+      t: "`$STRING`"
+    }
+    temperature: {
+      h: "Temperature"
+      n: "temperature"
+      r: false
+      sh: "Sampling temperature passed through to the model (0.0 to 2.0)"
+      t: "`$NUMBER`"
+    }
+  }
+
+  name: "ain"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /ai"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/ai"
+          s: [
+            {
+              lit: "ai"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /ai"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                ex: "Say hi"
+                k: "query"
+                n: "query"
+                or: "query"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/ai"
+          q: {
+            exist: [
+              "query"
+            ]
+          }
+          s: [
+            {
+              lit: "ai"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -116,30 +116,35 @@ def make_config():
         "fields": [
           {
             "name": "answer",
+            "title": "Answer",
+            "type": "`$STRING`",
             "req": True,
             "short": "Generated text response from the AI model",
-            "type": "`$STRING`",
           },
           {
             "name": "max_tokens",
-            "short": "Maximum tokens for the response",
+            "title": "Max Tokens",
             "type": "`$INTEGER`",
+            "short": "Maximum tokens for the response",
           },
           {
             "name": "messages",
+            "title": "Messages",
+            "type": "`$ARRAY`",
             "req": True,
             "short": "Chat history array passed to the model",
-            "type": "`$ARRAY`",
           },
           {
             "name": "model",
-            "short": "Overrides the default model (gpt-4o-mini)",
+            "title": "Model",
             "type": "`$STRING`",
+            "short": "Overrides the default model (gpt-4o-mini)",
           },
           {
             "name": "temperature",
-            "short": "Sampling temperature passed through to the model (0.0 to 2.0)",
+            "title": "Temperature",
             "type": "`$NUMBER`",
+            "short": "Sampling temperature passed through to the model (0.0 to 2.0)",
           },
         ],
         "name": "ain",
@@ -149,7 +154,6 @@ def make_config():
             "name": "create",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/ai",
@@ -158,14 +162,16 @@ def make_config():
                     "lit": "ai",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "ai",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "ai",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -174,18 +180,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "example": "Say hi",
-                      "kind": "query",
-                      "name": "query",
-                      "orig": "query",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/ai",
@@ -194,18 +188,31 @@ def make_config():
                     "lit": "ai",
                   },
                 ],
+                "parts": [
+                  "ai",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "query",
+                      "orig": "query",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                      "reqd": True,
+                      "example": "Say hi",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "query",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "ai",
-                ],
               },
             ],
           },

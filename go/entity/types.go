@@ -1,7 +1,7 @@
 // Typed models for the SodeomAiProxy SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,11 +14,6 @@ import (
 
 // Ain is the typed data model for the ain entity.
 type Ain struct {
-	Answer string `json:"answer"`
-	MaxTokens *int `json:"max_tokens,omitempty"`
-	Messages []any `json:"messages"`
-	Model *string `json:"model,omitempty"`
-	Temperature *float64 `json:"temperature,omitempty"`
 }
 
 // AinLoadMatch is the typed request payload for Ain.LoadTyped.

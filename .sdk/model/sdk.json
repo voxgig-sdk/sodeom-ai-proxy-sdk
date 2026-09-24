@@ -24,49 +24,120 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "ain": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "answer",
-              "req": true,
-              "short": "Generated text response from the AI model",
-              "type": "`$STRING`"
+          "fields": {
+            "answer": {
+              "a": true,
+              "h": "Answer",
+              "n": "answer",
+              "r": true,
+              "sh": "Generated text response from the AI model",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "max_tokens",
-              "req": false,
-              "short": "Maximum tokens for the response",
-              "type": "`$INTEGER`"
+            "max_tokens": {
+              "a": true,
+              "h": "Max Tokens",
+              "n": "max_tokens",
+              "r": false,
+              "sh": "Maximum tokens for the response",
+              "t": "`$INTEGER`"
             },
-            {
-              "active": true,
-              "name": "messages",
-              "req": true,
-              "short": "Chat history array passed to the model",
-              "type": "`$ARRAY`"
+            "messages": {
+              "a": true,
+              "h": "Messages",
+              "n": "messages",
+              "r": true,
+              "sh": "Chat history array passed to the model",
+              "t": "`$ARRAY`"
             },
-            {
-              "active": true,
-              "name": "model",
-              "req": false,
-              "short": "Overrides the default model (gpt-4o-mini)",
-              "type": "`$STRING`"
+            "model": {
+              "a": true,
+              "h": "Model",
+              "n": "model",
+              "r": false,
+              "sh": "Overrides the default model (gpt-4o-mini)",
+              "t": "`$STRING`"
             },
-            {
-              "active": true,
-              "name": "temperature",
-              "req": false,
-              "short": "Sampling temperature passed through to the model (0.0 to 2.0)",
-              "type": "`$NUMBER`"
+            "temperature": {
+              "a": true,
+              "h": "Temperature",
+              "n": "temperature",
+              "r": false,
+              "sh": "Sampling temperature passed through to the model (0.0 to 2.0)",
+              "t": "`$NUMBER`"
             }
-          ],
+          },
           "name": "ain",
           "op": {
             "create": {
@@ -74,24 +145,24 @@
               "name": "create",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "POST /ai",
-                    "json": "{\"operationId\":\"postAiResponse\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"example\":{\"messages\":[{\"content\":\"Say hi\",\"role\":\"user\"}],\"model\":\"gpt-4o-mini\",\"temperature\":0.7},\"schema\":{\"properties\":{\"max_tokens\":{\"description\":\"Maximum tokens for the response\",\"example\":2048,\"minimum\":1,\"type\":\"integer\"},\"messages\":{\"description\":\"Chat history array passed to the model\",\"items\":{\"properties\":{\"content\":{\"description\":\"The content of the message\",\"example\":\"Say hi\",\"type\":\"string\"},\"role\":{\"description\":\"The role of the message sender\",\"enum\":[\"system\",\"user\",\"assistant\"],\"example\":\"user\",\"type\":\"string\"}},\"required\":[\"role\",\"content\"],\"type\":\"object\"},\"minItems\":1,\"type\":\"array\"},\"model\":{\"description\":\"Overrides the default model (gpt-4o-mini)\",\"example\":\"gpt-4o-mini\",\"type\":\"string\"},\"temperature\":{\"description\":\"Sampling temperature passed through to the model (0.0 to 2.0)\",\"example\":0.7,\"maximum\":2,\"minimum\":0,\"type\":\"number\"}},\"required\":[\"messages\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"answer\":\"Hello! How can I assist you today?\"},\"schema\":{\"properties\":{\"answer\":{\"description\":\"Generated text response from the AI model\",\"example\":\"Hello! How can I assist you today?\",\"type\":\"string\"}},\"required\":[\"answer\"],\"type\":\"object\"}}},\"description\":\"Successful response with generated text\"},\"400\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Missing query and messages\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request - Missing messages array\"},\"500\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Upstream API error\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error - Upstream API error\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "POST",
-                  "orig": "/ai",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "POST",
+                  "o": "/ai",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "ai"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -103,40 +174,40 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /ai",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "query": [
                       {
-                        "active": true,
-                        "example": "Say hi",
-                        "kind": "query",
-                        "name": "query",
-                        "orig": "query",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "Say hi",
+                        "k": "query",
+                        "n": "query",
+                        "or": "query",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /ai",
-                    "json": "{\"operationId\":\"getAiResponse\",\"parameters\":[{\"description\":\"Simple prompt text used to build messages\",\"example\":\"Say hi\",\"in\":\"query\",\"name\":\"query\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"example\":{\"answer\":\"Hello! How can I assist you today?\"},\"schema\":{\"properties\":{\"answer\":{\"description\":\"Generated text response from the AI model\",\"example\":\"Hello! How can I assist you today?\",\"type\":\"string\"}},\"required\":[\"answer\"],\"type\":\"object\"}}},\"description\":\"Successful response with generated text\"},\"400\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Missing query and messages\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Bad request - Missing query parameter\"},\"500\":{\"content\":{\"application/json\":{\"example\":{\"error\":\"Upstream API error\"},\"schema\":{\"properties\":{\"error\":{\"description\":\"Error message describing what went wrong\",\"example\":\"Missing query and messages\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Internal server error - Upstream API error\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/ai",
-                  "segments": [
-                    {
-                      "lit": "ai"
-                    }
-                  ],
-                  "select": {
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/ai",
+                  "q": {
                     "exist": [
                       "query"
                     ]
                   },
-                  "transform": {
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "ai"
+                    }
+                  ],
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -565,28 +636,28 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "ain_ref01"
               },
-              "match": {},
-              "op": "create",
-              "spec": [],
-              "valid": []
+              "m": {},
+              "o": "create",
+              "s": [],
+              "v": []
             },
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "ain_ref01",
                 "srcdatavar": "ain_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {},
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "m": {},
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {

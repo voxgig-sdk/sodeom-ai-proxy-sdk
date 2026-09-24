@@ -1,0 +1,36 @@
+# BasicAinFlow
+
+main: kit: flow: BasicAinFlow:
+{
+  entity: "ain",
+  kind: "basic",
+  name: "BasicAinFlow",
+  step: [
+    {
+      i: {
+        ref: "ain_ref01"
+      }
+
+      o: "create"
+    }
+
+    {
+      i: {
+        ref: "ain_ref01",
+        srcdatavar: "ain_ref01_data",
+        suffix: "_dt0"
+      }
+
+      o: "load",
+      v: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-ain_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicAinFlow"
+}
