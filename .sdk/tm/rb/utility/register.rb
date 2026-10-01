@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 SodeomAiProxyUtility.registrar = ->(u) {
   u.clean = SodeomAiProxyUtilities::Clean
+  u.clean_add = SodeomAiProxyUtilities::CleanAdd
+  u.clean_explain = SodeomAiProxyUtilities::CleanExplain
   u.done = SodeomAiProxyUtilities::Done
   u.make_error = SodeomAiProxyUtilities::MakeError
   u.feature_add = SodeomAiProxyUtilities::FeatureAdd

@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 SodeomAiProxyUtility::setRegistrar(function (SodeomAiProxyUtility $u): void {
     $u->clean = [SodeomAiProxyClean::class, 'call'];
+    $u->clean_add = [SodeomAiProxyClean::class, 'add'];
+    $u->clean_explain = [SodeomAiProxyDone::class, 'clean_explain'];
     $u->done = [SodeomAiProxyDone::class, 'call'];
     $u->make_error = [SodeomAiProxyMakeError::class, 'call'];
     $u->feature_add = [SodeomAiProxyFeatureAdd::class, 'call'];

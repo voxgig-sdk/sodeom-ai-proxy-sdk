@@ -15,9 +15,13 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`):
+release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases)), or from a
+clone, which carries the compiled `dist/`:
 
-- Releases: [https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases](https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk/releases)
+```bash
+git clone https://github.com/voxgig-sdk/sodeom-ai-proxy-sdk
+npm install ./sodeom-ai-proxy-sdk/ts
+```
 
 
 ## Tutorial: your first API call
