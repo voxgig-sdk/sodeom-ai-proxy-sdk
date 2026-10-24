@@ -17,7 +17,12 @@ const PLAN: any[] = [
     "args": [],
     "select": {},
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [],
+    "queryArgs": [],
     "auth": null,
     "status": 200,
     "sample": {
@@ -36,8 +41,18 @@ const PLAN: any[] = [
       "query": "Say hi"
     },
     "headers": [],
+    "cookies": [],
+    "responseMedia": [
+      "application/json"
+    ],
     "query": [
       "query"
+    ],
+    "queryArgs": [
+      {
+        "name": "query",
+        "wire": "query"
+      }
     ],
     "auth": null,
     "status": 200,

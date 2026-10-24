@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { SodeomAiProxySDK, BaseFeature, stdutil } from '../../..'
+import { SodeomAiProxySDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,18 @@ describe('AinEntity', async () => {
   })
 
 
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = SodeomAiProxySDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Ain().load({"query":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.SODEOM_AI_PROXY_TEST_LIVE
@@ -51,7 +63,7 @@ describe('AinEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"answer":{"a":true,"h":"Answer","n":"answer","r":true,"sh":"Generated text response from the AI model","t":"`$STRING`","key$":"answer","index$":0},"max_tokens":{"a":true,"h":"Max Tokens","n":"max_tokens","r":false,"sh":"Maximum tokens for the response","t":"`$INTEGER`","key$":"max_tokens","index$":1},"messages":{"a":true,"h":"Messages","n":"messages","r":true,"sh":"Chat history array passed to the model","t":"`$ARRAY`","key$":"messages","index$":2},"model":{"a":true,"h":"Model","n":"model","r":false,"sh":"Overrides the default model (gpt-4o-mini)","t":"`$STRING`","key$":"model","index$":3},"temperature":{"a":true,"h":"Temperature","n":"temperature","r":false,"sh":"Sampling temperature passed through to the model (0.0 to 2.0)","t":"`$NUMBER`","key$":"temperature","index$":4}},"name":"ain","op":{"create":{"input":"data","name":"create","points":[{"a":true,"co":{"id":"POST /ai","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/ai","q":{},"r":{},"s":[{"lit":"ai"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /ai","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"Say hi","k":"query","n":"query","or":"query","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/ai","q":{"exist":["query"]},"r":{},"s":[{"lit":"ai"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"ain","name__orig":"ain","Name":"Ain","name_":"ain","name-":"ain","NAME":"AIN","index$":0}, {"active":true,"entity":"ain","key$":"BasicAinFlow","kind":"basic","name":"BasicAinFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"ain_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0},{"a":true,"d":{},"i":{"ref":"ain_ref01","srcdatavar":"ain_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-ain_ref01"}}],"index$":1}]}, 'Ain', {"POST /ai":{"protocol":"http","requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["messages"],"properties":{"messages":{"type":"array","description":"Chat history array passed to the model","items":{"type":"object","required":["role","content"],"properties":{"role":{"type":"string","description":"The role of the message sender","enum":[],"example":"user"},"content":{"type":"string","description":"The content of the message","example":"Say hi"}},"x-ref":"#/components/schemas/Message"},"minItems":1,"key$":"messages"},"model":{"type":"string","description":"Overrides the default model (gpt-4o-mini)","example":"gpt-4o-mini","key$":"model"},"temperature":{"type":"number","description":"Sampling temperature passed through to the model (0.0 to 2.0)","minimum":0,"maximum":2,"example":0.7,"key$":"temperature"},"max_tokens":{"type":"integer","description":"Maximum tokens for the response","minimum":1,"example":2048,"key$":"max_tokens"}},"x-ref":"#/components/schemas/AiRequest","index$":1},"example":{"model":"gpt-4o-mini","messages":[{"role":"user","content":"Say hi"}],"temperature":0.7}}}},"parameters":[]},"GET /ai":{"protocol":"http","parameters":[{"name":"query","in":"query","description":"Simple prompt text used to build messages","required":true,"schema":{"type":"string"},"example":"Say hi","index$":0}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"answer":{"a":true,"h":"Answer","n":"answer","r":true,"sh":"Generated text response from the AI model","t":"`$STRING`","key$":"answer","index$":0},"max_tokens":{"a":true,"h":"Max Tokens","n":"max_tokens","r":false,"sh":"Maximum tokens for the response","t":"`$INTEGER`","key$":"max_tokens","index$":1},"messages":{"a":true,"h":"Messages","n":"messages","r":true,"sh":"Chat history array passed to the model","t":"`$ARRAY`","key$":"messages","index$":2},"model":{"a":true,"h":"Model","n":"model","r":false,"sh":"Overrides the default model (gpt-4o-mini)","t":"`$STRING`","key$":"model","index$":3},"temperature":{"a":true,"h":"Temperature","n":"temperature","r":false,"sh":"Sampling temperature passed through to the model (0.0 to 2.0)","t":"`$NUMBER`","key$":"temperature","index$":4}},"name":"ain","op":{"create":{"input":"data","name":"create","points":[{"a":true,"bf":["max_tokens","messages","model","temperature"],"co":{"id":"POST /ai","source":"openapi3","version":2},"g":{},"k":"http","m":"POST","o":"/ai","q":{},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"ai"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"create"},"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /ai","source":"openapi3","version":2},"g":{"query":[{"a":true,"ex":"Say hi","k":"query","n":"query","or":"query","r":true,"t":"`$STRING`","index$":0}]},"k":"http","m":"GET","o":"/ai","q":{"exist":["query"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"ai"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"ain","name__orig":"ain","Name":"Ain","name_":"ain","name-":"ain","NAME":"AIN","index$":0}, {"active":true,"entity":"ain","key$":"BasicAinFlow","kind":"basic","name":"BasicAinFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"ain_ref01"},"m":{},"o":"create","s":[],"v":[],"index$":0},{"a":true,"d":{},"i":{"ref":"ain_ref01","srcdatavar":"ain_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-ain_ref01"}}],"index$":1}]}, 'Ain', {"POST /ai":{"protocol":"http","requestBody":{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["messages"],"properties":{"messages":{"type":"array","description":"Chat history array passed to the model","items":{"type":"object","required":["role","content"],"properties":{"role":{"type":"string","description":"The role of the message sender","enum":[],"example":"user"},"content":{"type":"string","description":"The content of the message","example":"Say hi"}},"x-ref":"#/components/schemas/Message"},"minItems":1,"key$":"messages"},"model":{"type":"string","description":"Overrides the default model (gpt-4o-mini)","example":"gpt-4o-mini","key$":"model"},"temperature":{"type":"number","description":"Sampling temperature passed through to the model (0.0 to 2.0)","minimum":0,"maximum":2,"example":0.7,"key$":"temperature"},"max_tokens":{"type":"integer","description":"Maximum tokens for the response","minimum":1,"example":2048,"key$":"max_tokens"}},"x-ref":"#/components/schemas/AiRequest","index$":1},"example":{"model":"gpt-4o-mini","messages":[{"role":"user","content":"Say hi"}],"temperature":0.7}}}},"parameters":[]},"GET /ai":{"protocol":"http","parameters":[{"name":"query","in":"query","description":"Simple prompt text used to build messages","required":true,"schema":{"type":"string"},"example":"Say hi","index$":0}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -78,6 +90,12 @@ describe('AinEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

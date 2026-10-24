@@ -31,7 +31,6 @@ class AinLoadMatch
 /** Request payload for Ain#create. */
 class AinCreateData
 {
-    public string $answer;
     public ?int $max_tokens = null;
     public array $messages;
     public ?string $model = null;

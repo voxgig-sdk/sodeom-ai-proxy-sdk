@@ -48,6 +48,12 @@ main: kit: entity: ain: {
       name: "create"
       points: [
         {
+          bf: [
+            "max_tokens"
+            "messages"
+            "model"
+            "temperature"
+          ]
           co: {
             id: "POST /ai"
             source: "openapi3"
@@ -55,6 +61,10 @@ main: kit: entity: ain: {
           }
           m: "POST"
           o: "/ai"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "ai"
@@ -94,6 +104,10 @@ main: kit: entity: ain: {
             exist: [
               "query"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

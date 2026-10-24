@@ -18,7 +18,6 @@ export interface AinLoadMatch {
 }
 
 export interface AinCreateData {
-  answer: string
   max_tokens?: number
   messages: any[]
   model?: string

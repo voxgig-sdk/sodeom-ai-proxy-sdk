@@ -3,5 +3,17 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Chat history array passed to the model",
+      "Generated text response from the AI model",
+      "Maximum tokens for the response",
+      "Overrides the default model (gpt-4o-mini)",
+      "Production server",
+      "Sampling temperature passed through to the model (0.0 to 2.0)",
+      "Successful response with generated text",
+      "This API serves as a proxy to an OpenAI-compatible API utilizing GitHub Models. It allows users to send queries or chat history and receive generated text responses, ensuring privacy and no tracking."
+    ]
+  }
 }

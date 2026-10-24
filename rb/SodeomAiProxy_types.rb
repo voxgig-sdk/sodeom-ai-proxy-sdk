@@ -44,9 +44,6 @@ AinLoadMatch = Struct.new(
 
 # Request payload for Ain#create.
 #
-# @!attribute [rw] answer
-#   @return [String]
-#
 # @!attribute [rw] max_tokens
 #   @return [Integer, nil]
 #
@@ -59,7 +56,6 @@ AinLoadMatch = Struct.new(
 # @!attribute [rw] temperature
 #   @return [Float, nil]
 AinCreateData = Struct.new(
-  :answer,
   :max_tokens,
   :messages,
   :model,

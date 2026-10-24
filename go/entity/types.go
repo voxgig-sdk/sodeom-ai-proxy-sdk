@@ -23,7 +23,6 @@ type AinLoadMatch struct {
 
 // AinCreateData is the typed request payload for Ain.CreateTyped.
 type AinCreateData struct {
-	Answer string `json:"answer"`
 	MaxTokens *int `json:"max_tokens,omitempty"`
 	Messages []any `json:"messages"`
 	Model *string `json:"model,omitempty"`

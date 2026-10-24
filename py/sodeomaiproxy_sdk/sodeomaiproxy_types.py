@@ -32,7 +32,6 @@ class AinLoadMatch(TypedDict):
 
 
 class AinCreateDataRequired(TypedDict):
-    answer: str
     messages: list
 
 

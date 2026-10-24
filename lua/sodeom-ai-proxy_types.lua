@@ -17,7 +17,6 @@
 ---@field query string
 
 ---@class AinCreateData
----@field answer string
 ---@field max_tokens? number
 ---@field messages table
 ---@field model? string
